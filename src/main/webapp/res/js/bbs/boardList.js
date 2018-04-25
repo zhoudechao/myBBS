@@ -85,13 +85,13 @@ layui.use(['form','layer','laydate','table','upload'],function(){
             })
     });
 
-    //添加字典
+    //跳转到添加版块页面
     function addLink(edit){
         var index = layer.open({
-            title : "添加字典",
+            title : "添加版块信息",
             type : 2,
 			area: ['540px', '550px'],
-            content : path + "/dict/form.do"
+            content : path + "/board/form.do"
         })
     }
   //添加字典
@@ -236,16 +236,17 @@ layui.use(['form','layer','laydate','table','upload'],function(){
         var ajaxReturnData;
         //登陆验证
         $.ajax({
-            url: path + '/dict/save.do',
+            url: path + '/board/save.do',
             type: 'post',
             async: false,
             data: data.field,
             success: function (data) {
-                ajaxReturnData = data;
+                ajaxReturnData = data.status;
             }
         });
+        debugger;
         //结果回应
-        if (ajaxReturnData == '0') {
+        if (ajaxReturnData == '1') {
         	top.layer.close(index);
         	top.layer.msg('保存成功', {icon: 1});
         	 layer.closeAll("iframe");

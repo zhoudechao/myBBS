@@ -87,6 +87,7 @@ layui.use(['form','layer','laydate','table','upload'],function(){
 
     //添加字典
     function addLink(edit){
+    	debugger;
         var index = layer.open({
             title : "添加字典",
             type : 2,
@@ -245,6 +246,7 @@ layui.use(['form','layer','laydate','table','upload'],function(){
             }
         });
         //结果回应
+        debugger;
         if (ajaxReturnData == '0') {
         	top.layer.close(index);
         	top.layer.msg('保存成功', {icon: 1});
