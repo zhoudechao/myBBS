@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mapper.tool.CodeGeneratorMapper">
+	
+	<!-- 获取所有的表名称 -->
+	<select id="getTablesList" parameterType="java.util.Map"  resultType="java.util.Map">
+		select TABLE_NAME  as TABLENAME  
+		from information_schema.TABLES t 
+		where t.TABLE_SCHEMA=#{database}
+	</select>
+	
+	<!-- 获取列数据 -->
+	<select id="getListMap" parameterType="java.util.Map"  resultType="java.util.Map">
+		SELECT COLUMN_NAME COLUMNNAME,COLUMN_TYPE COLUMNTYPE,COLUMN_KEY COLUMNKEY ,CHARACTER_MAXIMUM_LENGTH DATALENGTH,
+			IS_NULLABLE ISNULLABLE,COLUMN_COMMENT COLUMNCOMMENT 
+		FROM INFORMATION_SCHEMA.COLUMNS T
+		WHERE TABLE_NAME = #{table_name} AND T.TABLE_SCHEMA=#{database}
+	</select>
+	
+</mapper>

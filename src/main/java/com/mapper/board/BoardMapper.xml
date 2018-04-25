@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mapper.board.BoardMapper" >
+  <resultMap id="BaseResultMap" type="com.model.board.Board" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="board_id" property="boardId" jdbcType="INTEGER" />
+    <result column="board_name" property="boardName" jdbcType="VARCHAR" />
+    <result column="board_postNum" property="boardPostnum" jdbcType="INTEGER" />
+    <result column="board_description" property="boardDescription" jdbcType="VARCHAR" />
+    <result column="board_createTime" property="boardCreatetime" jdbcType="TIMESTAMP" />
+    <result column="board_zt" property="boardZt" jdbcType="VARCHAR" />
+    <result column="board_todayNum" property="boardTodaynum" jdbcType="INTEGER" />
+    <result column="board_img" property="boardImg" jdbcType="LONGVARBINARY" />
+  </resultMap>
+</mapper>
