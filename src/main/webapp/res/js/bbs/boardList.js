@@ -79,8 +79,7 @@ layui.use(['form','layer','laydate','table','upload'],function(){
                     curr: 1 //重新从第 1 页开始
                 },
                 where: {
-                	type: $(".type").val(),  //类型
-                	description: $(".description").val() //描述
+                	boardName: $(".boardName").val() //版块名字
                 }
             })
     });
@@ -94,25 +93,16 @@ layui.use(['form','layer','laydate','table','upload'],function(){
             content : path + "/board/form.do"
         })
     }
-  //添加字典
+  //版块信息修改
     function editLink(edit){
+    	debugger;
         var index = layer.open({
-            title : "修改字典",
+            title : "修改版块信息",
             type : 2,
 			area: ['540px', '550px'],
-            content : path + "/dict/edit.do?id="+edit.id
+            content : path + "/board/edit.do?boardId="+edit.boardId
         })
     }
-  //添加键值
-    function addV(data){
-        var index = layer.open({
-            title : "添加字典",
-            type : 2,
-			area: ['540px', '550px'],
-            content : path + "/dict/addV.do?id="+data.id
-        })
-    }
-    
     //绑定添加友情链接事件
     $(".addLink_btn").click(function(){
         addLink();
@@ -125,19 +115,19 @@ layui.use(['form','layer','laydate','table','upload'],function(){
             linkId = [];
         if(data.length > 0) {
             for (var i in data) {
-                linkId.push(data[i].id);
+                linkId.push(data[i].boardId);
             }
-            layer.confirm('确定删除选中的字典？', {icon: 3, title: '提示信息'}, function (index) {
+            layer.confirm('确定删除选中的版块？', {icon: 3, title: '提示信息'}, function (index) {
             	var ajaxReturnData;
                 $.ajax({
-		            url: path + '/dict/deleteBatch.do',
+		            url: path + '/board/deleteBatch.do',
 		            type: 'post',
 		            async: false,
 		            data: {ids:linkId.toString()},
 		            success: function (data) {
 		                ajaxReturnData = data;
 		              //删除结果
-				        if (ajaxReturnData == '0') {
+				        if (ajaxReturnData == '1') {
 				            table.reload('tables');
 				            layer.msg('删除成功', {icon: 1});
 				        } else {
@@ -147,7 +137,7 @@ layui.use(['form','layer','laydate','table','upload'],function(){
 		        });
             })
         }else{
-            layer.msg("请选择需要删除的字典");
+            layer.msg("请选择需要删除的版块信息");
         }
     })
 
@@ -157,22 +147,20 @@ layui.use(['form','layer','laydate','table','upload'],function(){
             data = obj.data;
         if(layEvent === 'edit'){ //编辑
             editLink(data);
-        } else if(layEvent === 'addV'){
-    		addV(data);
         }else if(layEvent === 'del'){ //删除
-            layer.confirm('确定删除此字典？',{icon:3, title:'提示信息'},function(index){
+            layer.confirm('确定删除此版块？',{icon:3, title:'提示信息'},function(index){
                 var ajaxReturnData;
 		        $.ajax({
-		            url: path + '/dict/delete.do',
+		            url: path + '/board/delete.do',
 		            type: 'post',
 		            async: false,
-		            data: {id:data.id},
+		            data: {boardId:data.boardId},
 		            success: function (data) {
-		                ajaxReturnData = data;
+		                ajaxReturnData = data.status;
 		            }
 		        });
 		        //删除结果
-		        if (ajaxReturnData == '0') {
+		        if (ajaxReturnData == '1') {
 		            table.reload('tables');
 		            layer.msg('删除成功', {icon: 1});
 		        } else {
@@ -182,19 +170,20 @@ layui.use(['form','layer','laydate','table','upload'],function(){
 				layer.close(index);
             });
         }else if (obj.event === 'disable') {
-			layer.confirm('真的禁用字典么', function(index) {
+			layer.confirm('真的禁用这个版块么', function(index) {
+				debugger;
 				var ajaxReturnData;
 		        $.ajax({
-		            url: path + '/dict/setUse.do',
+		            url: path + '/board/setUse.do', //设置为可用
 		            type: 'post',
 		            async: false,
-		            data: {id:data.id},
+		            data: {boardId:data.boardId},
 		            success: function (data) {
-		                ajaxReturnData = data;
+		                ajaxReturnData = data.status;
 		            }
 		        });
 		        //删除结果
-		        if (ajaxReturnData == '0') {
+		        if (ajaxReturnData == '1') {
 		            table.reload('tables');
 		            layer.msg('操作成功', {icon: 1});
 		        } else {
@@ -205,19 +194,19 @@ layui.use(['form','layer','laydate','table','upload'],function(){
 				
 			});
 		}else if (obj.event === 'able') {
-			layer.confirm('真的将该字典置为可用么', function(index) {
+			layer.confirm('真的将该版块置为可用么', function(index) {
 				var ajaxReturnData;
 		        $.ajax({
-		            url: path + '/dict/setUse.do',
+		            url: path + '/board/setUse.do',
 		            type: 'post',
 		            async: false,
-		            data: {id:data.id},
+		            data: {boardId:data.boardId},
 		            success: function (data) {
-		                ajaxReturnData = data;
+		                ajaxReturnData = data.status;
 		            }
 		        });
 		        //删除结果
-		        if (ajaxReturnData == '0') {
+		        if (ajaxReturnData == '1') {
 		            table.reload('tables');
 		            layer.msg('操作成功', {icon: 1});
 		        } else {
@@ -244,7 +233,6 @@ layui.use(['form','layer','laydate','table','upload'],function(){
                 ajaxReturnData = data.status;
             }
         });
-        debugger;
         //结果回应
         if (ajaxReturnData == '1') {
         	top.layer.close(index);

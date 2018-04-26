@@ -74,6 +74,7 @@ layui.use(['form','layer','laydate','table','upload'],function(){
 
     //搜索
     $(".search_btn").on("click",function(){
+    	debugger;
             table.reload("tables",{
                 page: {
                     curr: 1 //重新从第 1 页开始

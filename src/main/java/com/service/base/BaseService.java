@@ -55,5 +55,21 @@ public abstract class BaseService<T> {
     	List<T> list=mapper.selectAll();
     	return new PageInfo<T>(list);
     }
+    /**
+     * @Description: 抽取条件查询类
+     * @param @param entity
+     * @param @param page
+     * @param @param limit
+     * @param @return   
+     * @return PageInfo<T>  
+     * @throws
+     * @author zhoudechao
+     * @date 2018年4月26日
+     */
+    public PageInfo<T> select(T entity,int page,int limit){
+    	PageHelper.startPage(page, limit);
+    	List<T> list=mapper.select(entity);
+    	return new PageInfo<T>(list);
+    }
 }
 

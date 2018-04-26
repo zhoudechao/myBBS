@@ -49,10 +49,10 @@ public class BoardController {
 	@SuppressWarnings("all")
 	@ResponseBody
 	@RequestMapping(value="/boardData")
-	public Map<String, Object> boardData(HttpServletRequest request,Model model,int page,int limit){
+	public Map<String, Object> boardData(HttpServletRequest request,Model model,int page,int limit,Board board){
 		Map<String, Object> map=new HashMap<String, Object>();
 		try {
-			PageInfo<Board> info=boardService.selectAll(page,limit);
+			PageInfo<Board> info=boardService.selectBoard(board,page,limit);
 			map.put("code", 0);
 	        map.put("msg", "");
 	        map.put("count", info.getTotal());
@@ -77,7 +77,15 @@ public class BoardController {
 	public String form(Board board,HttpServletRequest request,Model model){
 		return "views/board/boardAdd";
 	}
-	
+	/**
+	 * @Description: 保存版块添加或者更新保存
+	 * @param @param board
+	 * @param @return   
+	 * @return Map<String,Object>  
+	 * @throws
+	 * @author zhoudechao
+	 * @date 2018年4月26日
+	 */
 	@ResponseBody
 	@RequestMapping(value="/save",method=RequestMethod.POST)
 	public Map<String, Object> save(Board board){
@@ -88,6 +96,8 @@ public class BoardController {
 				status = boardService.updateNotNull(board);
 				map.put("status", String.valueOf(status));
 			}else{
+				//默认添加板块的时候为不可用
+				board.setBoardZt("1");
 				status = boardService.save(board);
 				map.put("status", String.valueOf(status));
 			}
@@ -95,5 +105,87 @@ public class BoardController {
 			e.printStackTrace();
 		}
 		return map;
+	}
+	/**
+	 * @Description:跳转到版块弹出页面
+	 * @param @param board
+	 * @param @param model
+	 * @param @return   
+	 * @return String  
+	 * @throws
+	 * @author zhoudechao
+	 * @date 2018年4月26日
+	 */
+	@RequestMapping("/edit")
+	public String edit(Board board,Model model){
+		board=boardService.queryone(board);
+		model.addAttribute("board", board);
+		return "views/board/boardAdd";
+	}
+	/**
+	 * @Description:删除版块信息列表
+	 * @param @param board
+	 * @param @return   
+	 * @return Map<String,Object>  
+	 * @throws
+	 * @author zhoudechao
+	 * @date 2018年4月26日
+	 */
+	@ResponseBody
+	@RequestMapping("/delete")
+	public Map<String, Object> delete(Board board){
+		Map<String, Object> map=new HashMap<String, Object>();
+		try {
+			int status=boardService.delete(board.getBoardId());
+			map.put("status", status);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return map;
+	}
+	/**
+	 * @Description: 设置版块信息为可用或者不可用
+	 * @param @param board
+	 * @param @return   
+	 * @return Map<String,Object>  
+	 * @throws
+	 * @author zhoudechao
+	 * @date 2018年4月26日
+	 */
+	@ResponseBody
+	@RequestMapping("/setUse")
+	public Map<String, Object> sertUse(Board board){
+		Map<String, Object> map=new HashMap<String, Object>();
+		try {
+			board=boardService.queryone(board);
+			if(board.getBoardZt().equals("0")){
+				board.setBoardZt("1");
+			}else{
+				board.setBoardZt("0");
+			}
+			int status=boardService.updateNotNull(board);
+			map.put("status", status);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return map;
+	}
+	
+	@ResponseBody
+	@RequestMapping("/deleteBatch")
+	public String deleteBatch(Model model,String ids){
+		String result="0";
+		try {
+			String[] idarr=ids.split(",");
+			for (String id : idarr) {
+				if(boardService.delete(Integer.parseInt(id))!=1){
+					break;
+				}
+			}
+			result="1";
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
 	}
 }
