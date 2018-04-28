@@ -45,9 +45,9 @@
 		<!-- tableName="%"表示数据库中所有表都参与逆向工程，此时使用默认规则 -->
 		<!-- 默认规则：table_dept→TableDept -->
 		<!-- 不符合默认规则时需要使用tableName和domainObjectName两个属性明确指定 -->
-		<table tableName="bbs_board" domainObjectName="Board">
+		<table tableName="${targetTableName}" domainObjectName="${targetPojoNamename}">
 			<!-- 配置主键生成策略 -->
-			<generatedKey column="boardId" sqlStatement="Mysql" identity="true" />
+			<generatedKey column="${targetGeneratedKey}" sqlStatement="Mysql" identity="true" />
 		</table>
 	</context>
 </generatorConfiguration>

@@ -1,5 +1,7 @@
 package com.controller.board;
 
+import java.sql.Timestamp;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.controller.base.BaseController;
 import com.github.pagehelper.PageInfo;
 import com.model.board.Board;
 import com.model.user.User;
@@ -20,36 +23,26 @@ import com.service.user.UserService;
 
 @Controller
 @RequestMapping("/board")
-public class BoardController {
+public class BoardController extends BaseController<Board>{
 
-	@Autowired
-	private UserService userService;
+	/*@Autowired
+	private UserService userService;*/
 	
 	@Autowired
 	private BoardService boardService;
-	/**
-	 * 
-	 * @Description: 版块管理跳转页面
-	 * @param @param request
-	 * @param @param model
-	 * @param @return   
-	 * @return String  
-	 * @throws
-	 * @author zhoudechao
-	 * @date 2018年4月25日
-	 */
-	@RequestMapping("/list")
+	/*这个类已经通过基类抽取出来不用在每个controller中编写了*/
+	/*	@RequestMapping("/list")
 	public String list(HttpServletRequest request,Model model){
 		//获取当前用户
 		User user=(User) request.getSession().getAttribute("user");
 		user=userService.get(user);
 		model.addAttribute("user",user);
 		return "views/board/boardList";
-	}
+	}*/
 	@SuppressWarnings("all")
 	@ResponseBody
 	@RequestMapping(value="/boardData")
-	public Map<String, Object> boardData(HttpServletRequest request,Model model,int page,int limit,Board board){
+	public Map<String, Object> boardData(Model model,int page,int limit,Board board){
 		Map<String, Object> map=new HashMap<String, Object>();
 		try {
 			PageInfo<Board> info=boardService.selectBoard(board,page,limit);
@@ -73,10 +66,10 @@ public class BoardController {
 	 * @author zhoudechao
 	 * @date 2018年4月25日
 	 */
-	@RequestMapping("/form")
+	/*@RequestMapping("/form")
 	public String form(Board board,HttpServletRequest request,Model model){
 		return "views/board/boardAdd";
-	}
+	}*/
 	/**
 	 * @Description: 保存版块添加或者更新保存
 	 * @param @param board
@@ -98,6 +91,10 @@ public class BoardController {
 			}else{
 				//默认添加板块的时候为不可用
 				board.setBoardZt("1");
+				//把当前系统时间转为datetime的格式存入数据库
+				Date date=new Date();
+				Timestamp timestamp=new Timestamp(date.getTime());
+				board.setBoardCreatetime(timestamp);
 				status = boardService.save(board);
 				map.put("status", String.valueOf(status));
 			}
@@ -116,12 +113,12 @@ public class BoardController {
 	 * @author zhoudechao
 	 * @date 2018年4月26日
 	 */
-	@RequestMapping("/edit")
+	/*@RequestMapping("/edit")
 	public String edit(Board board,Model model){
 		board=boardService.queryone(board);
 		model.addAttribute("board", board);
 		return "views/board/boardAdd";
-	}
+	}*/
 	/**
 	 * @Description:删除版块信息列表
 	 * @param @param board
@@ -154,7 +151,7 @@ public class BoardController {
 	 */
 	@ResponseBody
 	@RequestMapping("/setUse")
-	public Map<String, Object> sertUse(Board board){
+	public Map<String, Object> setUse(Board board){
 		Map<String, Object> map=new HashMap<String, Object>();
 		try {
 			board=boardService.queryone(board);
@@ -171,7 +168,7 @@ public class BoardController {
 		return map;
 	}
 	
-	@ResponseBody
+	/*@ResponseBody
 	@RequestMapping("/deleteBatch")
 	public String deleteBatch(Model model,String ids){
 		String result="0";
@@ -187,5 +184,5 @@ public class BoardController {
 			e.printStackTrace();
 		}
 		return result;
-	}
+	}*/
 }

@@ -9,7 +9,7 @@ layui.use(['form','layer','laydate','table','upload'],function(){
     //字典列表
     var tableIns = table.render({
         elem: '#list',
-        url : path + '/board/boardData.do',
+        url : path + '/common/commonData.do',
         page : true,
         cellMinWidth : 95,
         height : "full-104",
@@ -23,48 +23,33 @@ layui.use(['form','layer','laydate','table','upload'],function(){
 					width : 50
 				},
 				{
-					field: 'boardId',
+					field: 'commonId',
 					width: 80,
 					title: 'ID',
 					sort: true
 				}, 
 				{
-					field : 'boardName',
-					title : '版块名称',
+					field : 'commonTitle',
+					title : '公共信息主题',
 					width : 200
 				},
 				{
-					field : 'boardPostnum',
-					title : '发帖数量',
+					field : 'commonContent',
+					title : '公共信息内容',
 					width : 200
 				},
 				{
-					field : 'boardTodaynum',
-					title : '今日发帖数',
+					field : 'commonCreattime',
+					title : '公共信息创建时间',
 					width : 280,
 					align : 'center'
 				},
 				{
-					field : 'boardDescription',
-					title : '描述',
+					field : 'commonDescription',
+					title : '公共信息描述',
 					align : 'center',
 					width : 300
 				},
-				{
-					field : 'boardCreatetime',
-					title : '版块创建时间',
-					align : 'center',
-					width : 200,
-					templet : function(d){
-				        return dateFormat(d.boardCreatetime)
-				      }
-				},
-				/*{
-					field : 'status',
-					title : '状态',
-					align : 'center',
-					width : 200
-				},*/
 				{
 					title : '操作',
 					width : 350,
@@ -82,7 +67,7 @@ layui.use(['form','layer','laydate','table','upload'],function(){
                     curr: 1 //重新从第 1 页开始
                 },
                 where: {
-                	boardName: $(".boardName").val() //版块名字
+                	commonTitle: $(".commonTitle").val() //版块名字
                 }
             })
     });
@@ -90,19 +75,19 @@ layui.use(['form','layer','laydate','table','upload'],function(){
     //跳转到添加版块页面
     function addLink(edit){
         var index = layer.open({
-            title : "添加版块信息",
+            title : "添加公共信息",
             type : 2,
 			area: ['540px', '550px'],
-            content : path + "/board/add.do"
+            content : path + "/common/add.do"
         })
     }
-  //版块信息修改
+  //公共信息修改
     function editLink(edit){
         var index = layer.open({
-            title : "修改版块信息",
+            title : "修改公共信息",
             type : 2,
 			area: ['540px', '550px'],
-            content : path + "/board/edit.do?boardId="+edit.boardId
+            content : path + "/common/edit.do?commonId="+edit.commonId
         })
     }
     //绑定添加友情链接事件
@@ -119,10 +104,10 @@ layui.use(['form','layer','laydate','table','upload'],function(){
             for (var i in data) {
                 linkId.push(data[i].boardId);
             }
-            layer.confirm('确定删除选中的版块？', {icon: 3, title: '提示信息'}, function (index) {
+            layer.confirm('确定删除选中的公共信息？', {icon: 3, title: '提示信息'}, function (index) {
             	var ajaxReturnData;
                 $.ajax({
-		            url: path + '/board/deleteBatch.do',
+		            url: path + '/common/deleteBatch.do',
 		            type: 'post',
 		            async: false,
 		            data: {ids:linkId.toString()},
@@ -139,7 +124,7 @@ layui.use(['form','layer','laydate','table','upload'],function(){
 		        });
             })
         }else{
-            layer.msg("请选择需要删除的版块信息");
+            layer.msg("请选择需要删除的公共信息");
         }
     })
 
@@ -150,13 +135,13 @@ layui.use(['form','layer','laydate','table','upload'],function(){
         if(layEvent === 'edit'){ //编辑
             editLink(data);
         }else if(layEvent === 'del'){ //删除
-            layer.confirm('确定删除此版块？',{icon:3, title:'提示信息'},function(index){
+            layer.confirm('确定删除此公共信息？',{icon:3, title:'提示信息'},function(index){
                 var ajaxReturnData;
 		        $.ajax({
-		            url: path + '/board/delete.do',
+		            url: path + '/common/delete.do',
 		            type: 'post',
 		            async: false,
-		            data: {boardId:data.boardId},
+		            data: {commonId:data.commonId},
 		            success: function (data) {
 		                ajaxReturnData = data.status;
 		            }
@@ -172,13 +157,13 @@ layui.use(['form','layer','laydate','table','upload'],function(){
 				layer.close(index);
             });
         }else if (obj.event === 'disable') {
-			layer.confirm('真的禁用这个版块么', function(index) {
+			layer.confirm('真的禁用这个公共信息么', function(index) {
 				var ajaxReturnData;
 		        $.ajax({
-		            url: path + '/board/setUse.do', //设置为可用
+		            url: path + '/common/setUse.do', //设置为可用
 		            type: 'post',
 		            async: false,
-		            data: {boardId:data.boardId},
+		            data: {commonId:data.commonId},
 		            success: function (data) {
 		                ajaxReturnData = data.status;
 		            }
@@ -195,13 +180,13 @@ layui.use(['form','layer','laydate','table','upload'],function(){
 				
 			});
 		}else if (obj.event === 'able') {
-			layer.confirm('真的将该版块置为可用么', function(index) {
+			layer.confirm('真的将该公共信息置为可用么', function(index) {
 				var ajaxReturnData;
 		        $.ajax({
-		            url: path + '/board/setUse.do',
+		            url: path + '/common/setUse.do',
 		            type: 'post',
 		            async: false,
-		            data: {boardId:data.boardId},
+		            data: {commonId:data.commonId},
 		            success: function (data) {
 		                ajaxReturnData = data.status;
 		            }
@@ -226,7 +211,7 @@ layui.use(['form','layer','laydate','table','upload'],function(){
         var ajaxReturnData;
         //登陆验证
         $.ajax({
-            url: path + '/board/save.do',
+            url: path + '/common/save.do',
             type: 'post',
             async: false,
             data: data.field,
@@ -246,6 +231,5 @@ layui.use(['form','layer','laydate','table','upload'],function(){
         }
         return false;
     })
-    
- 
+
 })

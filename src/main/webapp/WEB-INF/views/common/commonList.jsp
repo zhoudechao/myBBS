@@ -18,9 +18,9 @@
 	<blockquote class="layui-elem-quote quoteBox">
 		<form class="layui-form">
 			<div class="layui-inline">
-				版块名称：
+				公共版块信息名称：
 				<div class="layui-input-inline">
-					<input type="text" class="layui-input boardName" placeholder="请输入搜索版块名称" />
+					<input type="text" class="layui-input commonTitle" placeholder="请输入搜索公共信息内容" />
 				</div>
 				<!-- 描述：
 				<div class="layui-input-inline">
@@ -29,10 +29,10 @@
 				<a class="layui-btn search_btn" data-type="reload"><i class="layui-icon">&#xe615;</i>搜索</a>
 			</div>
 			<div class="layui-inline">
-				<a class="layui-btn layui-btn-normal addLink_btn"><i class="layui-icon">&#xe608;</i>添加版块信息</a>
+				<a class="layui-btn layui-btn-normal addLink_btn"><i class="layui-icon">&#xe608;</i>添加公共信息</a>
 			</div>
 			<div class="layui-inline">
-				<a class="layui-btn layui-btn-danger layui-btn-normal delAll_btn"><i class="layui-icon">&#xe640;</i>批量删除</a>
+				<a class="layui-btn layui-btn-danger layui-btn-normal delAll_btn"><i class="layui-icon">&#xe640;</i>批量删除公共信息</a>
 			</div>
 		</form>
 	</blockquote>
@@ -40,16 +40,17 @@
 
 	<script type="text/html" id="flinkbar">
       <a class="layui-btn layui-btn-xs" lay-event="edit"><i class="layui-icon">&#xe642;</i>编辑</a>
-  		{{#  if(d.boardZt === '0'){ }}
+  		{{#  if(d.zt === '0'){ }}
      		<a class="layui-btn layui-btn-warm  layui-btn-xs" lay-event="disable"><i class="fa fa-ban"></i>&nbsp;禁用</a>
   		{{#  } else { }}
 			<a class="layui-btn layui-btn-warm  layui-btn-xs" lay-event="able"><i class="fa fa-circle-o"></i>&nbsp;置为可用</a>
   		{{#  } }}
       <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del"><i class="layui-icon">&#xe640;</i>删除</a>
 	</script>
+	
+
 	<script type="text/javascript" src="${path}/res/layui/layui.js"></script>
-	<script type="text/javascript" src="${path}/res/js/bbs/boardList.js"></script>
-	<script type="text/javascript" src="${path}/res/js/util/bbsUtil.js"></script>
+	<script type="text/javascript" src="${path}/res/js/bbs/commonList.js"></script>
 	<script type="text/javascript">
 		var path = "${path}";
 	</script>

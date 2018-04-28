@@ -7,6 +7,7 @@ import javax.persistence.*;
 public class Board {
     @Id
     @Column(name = "board_id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer boardId;
 
     @Column(name = "board_name")
@@ -32,6 +33,9 @@ public class Board {
 
     @Column(name = "board_img")
     private byte[] boardImg;
+    
+    @Column(name="board_bh")
+    private Integer boardBh;
 
     /**
      * @return board_id
@@ -148,4 +152,13 @@ public class Board {
     public void setBoardImg(byte[] boardImg) {
         this.boardImg = boardImg;
     }
+
+	public Integer getBoardBh() {
+		return boardBh;
+	}
+
+	public void setBoardBh(Integer boardBh) {
+		this.boardBh = boardBh;
+	}
+    
 }

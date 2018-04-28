@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mapper.common.CommonMapper">
+  <resultMap id="BaseResultMap" type="com.model.common.Common">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="common_id" jdbcType="INTEGER" property="commonId" />
+    <result column="common_bh" jdbcType="INTEGER" property="commonBh" />
+    <result column="common_title" jdbcType="VARCHAR" property="commonTitle" />
+    <result column="common_content" jdbcType="VARCHAR" property="commonContent" />
+    <result column="common_creatTime" jdbcType="TIMESTAMP" property="commonCreattime" />
+    <result column="zt" jdbcType="VARCHAR" property="zt" />
+    <result column="common_description" jdbcType="VARCHAR" property="commonDescription" />
+  </resultMap>
+</mapper>
