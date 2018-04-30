@@ -5,8 +5,6 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,9 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.controller.base.BaseController;
 import com.github.pagehelper.PageInfo;
 import com.model.board.Board;
-import com.model.user.User;
 import com.service.board.BoardService;
-import com.service.user.UserService;
 
 @Controller
 @RequestMapping("/board")

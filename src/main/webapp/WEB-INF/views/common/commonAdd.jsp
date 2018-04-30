@@ -39,6 +39,12 @@
 		</div>
 	</div>
 	<div class="layui-form-item">
+		<label class="layui-form-label">公共信息描述</label>
+		<div class="layui-input-block">
+			<input type="text" name="commonDescription" value="${common.commonDescription }" class="layui-input" lay-verify="required" placeholder="请输入公共信息描述" />
+		</div>
+	</div>
+	<div class="layui-form-item">
 		<button class="layui-btn layui-block" lay-filter="addLink" lay-submit>提交</button>
 	</div>
 </form>

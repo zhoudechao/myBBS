@@ -6,6 +6,10 @@ import org.springframework.transaction.annotation.Transactional;
 import com.github.pagehelper.PageInfo;
 import com.model.board.Board;
 import com.service.base.BaseService;
+
+import tk.mybatis.mapper.entity.Example;
+import tk.mybatis.mapper.entity.Example.Criteria;
+import tk.mybatis.mapper.util.StringUtil;
 @Service
 @Transactional
 public class BoardService extends BaseService<Board> {
@@ -21,12 +25,20 @@ public class BoardService extends BaseService<Board> {
 	 * @date 2018年4月26日
 	 */
 	public PageInfo<Board> selectBoard(Board board,int page,int limit){
-		PageInfo<Board> info=null;
+		Example example=new Example(Board.class);
+		Criteria criteria=example.createCriteria();
+		if(StringUtil.isNotEmpty(board.getBoardName())){
+			String username="%"+board.getBoardName()+"%";
+			criteria.andLike("boardName", username);
+		}
+		PageInfo<Board> info =this.selectByExample(page,limit,example);
+		return info;
+		/*PageInfo<Board> info=null;
 		if(board.getBoardName() !=null){
 			info=this.select(board,page,limit);
 		}else{
 			info=this.selectAll(page, limit);
 		}
-		return info;
+		return info;*/
 	}
 }

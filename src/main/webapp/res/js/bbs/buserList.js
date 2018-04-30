@@ -5,11 +5,39 @@ layui.use(['form','layer','laydate','table','upload'],function(){
         laydate = layui.laydate,
         upload = layui.upload,
         table = layui.table;
-
+    //这个部分是时间范围选择的时候用到
+    var nowTime = new Date().valueOf();
+    var max = null;
+    var start = laydate.render({
+        elem: '.startTime',
+        type: 'datetime',
+        max: nowTime,
+        btns: ['clear', 'confirm'],
+        done: function(value, date){
+            endMax = end.config.max;
+            end.config.min = date;
+            end.config.min.month = date.month -1;
+        }
+    });
+    var end = laydate.render({
+        elem: '.endTime',
+        type: 'datetime',
+        max: nowTime,
+        done: function(value, date){
+            if($.trim(value) == ''){
+                var curDate = new Date();
+                date = {'date': curDate.getDate(), 'month': curDate.getMonth()+1, 'year': curDate.getFullYear()};
+            }
+            start.config.max = date;
+            start.config.max.month = date.month -1;
+        }
+    });
+    
+    
     //字典列表
     var tableIns = table.render({
         elem: '#list',
-        url : path + '/common/commonData.do',
+        url : path + '/buser/buserData.do',
         page : true,
         cellMinWidth : 95,
         height : "full-104",
@@ -23,39 +51,83 @@ layui.use(['form','layer','laydate','table','upload'],function(){
 					width : 50
 				},
 				{
-					field: 'commonId',
-					width: 80,
+					field: 'userId',
+					width: 70,
 					title: 'ID',
+					align : 'center',
 					sort: true
 				}, 
 				{
-					field : 'commonTitle',
-					title : '公共信息主题',
-					width : 200
-				},
-				{
-					field : 'commonContent',
-					title : '公共信息内容',
-					width : 200
-				},
-				{
-					field : 'commonCreattime',
-					title : '公共信息创建时间',
-					width : 280,
+					field : 'userName',
+					title : '姓名',
 					align : 'center',
-					templet:function(d){
-				        return dateFormat(d.boardCreatetime)
+					width : 100
+				},
+				{
+					field : 'userEmail',
+					title : '邮箱',
+					align : 'center',
+					width : 180
+				},
+				{
+					field : 'userSex',
+					title : '性别',
+					width : 50,
+					align : 'center'
+				},
+				{
+					field : 'userPostnum',
+					title : '发帖数量',
+					align : 'center',
+					width : 90
+				},
+				{
+					field : 'userJoindate',
+					title : '创建时间',
+					align : 'center',
+					width : 180,
+					templet : function(d){
+				        return dateFormat(d.userJoindate)
 				      }
 				},
 				{
-					field : 'commonDescription',
-					title : '公共信息描述',
+					field : 'userLastlogin',
+					title : '上次登录时间',
 					align : 'center',
-					width : 300
+					width : 180,
+					templet : function(d){
+				        return dateFormat(d.userLastlogin)
+				      }
 				},
 				{
+					field : 'userLogins',
+					title : '登录次数',
+					align : 'center',
+					width : 90
+				},
+				{
+					field : 'userBirthday',
+					title : '生日',
+					align : 'center',
+					width : 150
+				},
+				{
+					field : 'userDescription',
+					title : '描述',
+					align : 'center',
+					width : 150
+				},
+				/*{
+					field : 'startTime',
+					title : '开始时间'
+				},
+				{
+					field : 'endTime',
+					title : '结束时间'
+				},*/
+				{
 					title : '操作',
-					width : 350,
+					width : 200,
 					fixed : "right",
 					align : "center",
 					templet : '#flinkbar'
@@ -65,38 +137,20 @@ layui.use(['form','layer','laydate','table','upload'],function(){
 
     //搜索
     $(".search_btn").on("click",function(){
+    	var userName=$(".userName").val();
+    	var startTime= $(".startTime").val();
+    	var endTime=$(".endTime").val();
+    	debugger;
             table.reload("tables",{
                 page: {
                     curr: 1 //重新从第 1 页开始
                 },
                 where: {
-                	commonTitle: $(".commonTitle").val() //版块名字
+                	userName: userName
                 }
             })
     });
 
-    //跳转到添加版块页面
-    function addLink(edit){
-        var index = layer.open({
-            title : "添加公共信息",
-            type : 2,
-			area: ['540px', '550px'],
-            content : path + "/common/add.do"
-        })
-    }
-  //公共信息修改
-    function editLink(edit){
-        var index = layer.open({
-            title : "修改公共信息",
-            type : 2,
-			area: ['540px', '550px'],
-            content : path + "/common/edit.do?commonId="+edit.commonId
-        })
-    }
-    //绑定添加友情链接事件
-    $(".addLink_btn").click(function(){
-        addLink();
-    })
 
     //批量删除
     $(".delAll_btn").click(function(){
@@ -105,12 +159,12 @@ layui.use(['form','layer','laydate','table','upload'],function(){
             linkId = [];
         if(data.length > 0) {
             for (var i in data) {
-                linkId.push(data[i].commonId);
+                linkId.push(data[i].userId);
             }
-            layer.confirm('确定删除选中的公共信息？', {icon: 3, title: '提示信息'}, function (index) {
+            layer.confirm('确定删除选中的用户？', {icon: 3, title: '提示信息'}, function (index) {
             	var ajaxReturnData;
                 $.ajax({
-		            url: path + '/common/deleteBatch.do',
+		            url: path + '/buser/deleteBatch.do',
 		            type: 'post',
 		            async: false,
 		            data: {ids:linkId.toString()},
@@ -127,7 +181,7 @@ layui.use(['form','layer','laydate','table','upload'],function(){
 		        });
             })
         }else{
-            layer.msg("请选择需要删除的公共信息");
+            layer.msg("请选择需要删除的用户信息");
         }
     })
 
@@ -138,13 +192,13 @@ layui.use(['form','layer','laydate','table','upload'],function(){
         if(layEvent === 'edit'){ //编辑
             editLink(data);
         }else if(layEvent === 'del'){ //删除
-            layer.confirm('确定删除此公共信息？',{icon:3, title:'提示信息'},function(index){
+            layer.confirm('确定删除此用户？',{icon:3, title:'提示信息'},function(index){
                 var ajaxReturnData;
 		        $.ajax({
-		            url: path + '/common/delete.do',
+		            url: path + '/buser/delete.do',
 		            type: 'post',
 		            async: false,
-		            data: {commonId:data.commonId},
+		            data: {userId:data.userId},
 		            success: function (data) {
 		                ajaxReturnData = data.status;
 		            }
@@ -160,13 +214,13 @@ layui.use(['form','layer','laydate','table','upload'],function(){
 				layer.close(index);
             });
         }else if (obj.event === 'disable') {
-			layer.confirm('真的禁用这个公共信息么', function(index) {
+			layer.confirm('真的禁用这个版块么', function(index) {
 				var ajaxReturnData;
 		        $.ajax({
-		            url: path + '/common/setUse.do', //设置为可用
+		            url: path + '/buser/setUse.do', //设置为可用
 		            type: 'post',
 		            async: false,
-		            data: {commonId:data.commonId},
+		            data: {userId:data.userId},
 		            success: function (data) {
 		                ajaxReturnData = data.status;
 		            }
@@ -183,13 +237,13 @@ layui.use(['form','layer','laydate','table','upload'],function(){
 				
 			});
 		}else if (obj.event === 'able') {
-			layer.confirm('真的将该公共信息置为可用么', function(index) {
+			layer.confirm('真的将该版块置为可用么', function(index) {
 				var ajaxReturnData;
 		        $.ajax({
-		            url: path + '/common/setUse.do',
+		            url: path + '/buser/setUse.do',
 		            type: 'post',
 		            async: false,
-		            data: {commonId:data.commonId},
+		            data: {userId:data.userId},
 		            success: function (data) {
 		                ajaxReturnData = data.status;
 		            }
@@ -201,40 +255,8 @@ layui.use(['form','layer','laydate','table','upload'],function(){
 		        } else {
 		        	layer.msg('操作失败', {icon: 5});
 		        }
-				
 				layer.close(index);
-				
 			});
 		}
     });
-    
-    form.on("submit(addLink)",function(data){
-        //弹出loading
-        var index = top.layer.msg('数据提交中，请稍候',{icon: 16,time:false,shade:0.8});
-        var ajaxReturnData;
-        debugger;
-        //登陆验证
-        $.ajax({
-            url: path + '/common/save.do',
-            type: 'post',
-            async: false,
-            data:data.field,
-            //data: {commonId:data.commonId,commonBh:data.commonBh,commonTitle:data.commonTitle,commonContent:data.commonContent,commonDescription:data.commonDescription},
-            success: function (data) {
-                ajaxReturnData = data.status;
-            }
-        });
-        //结果回应
-        if (ajaxReturnData == '1') {
-        	top.layer.close(index);
-        	top.layer.msg('保存成功', {icon: 1});
-        	 layer.closeAll("iframe");
-             //刷新父页面
-             $(".layui-tab-item.layui-show",parent.document).find("iframe")[0].contentWindow.location.reload();
-        } else {
-        	top.layer.msg('保存失败', {icon: 5});
-        }
-        return false;
-    })
-
 })

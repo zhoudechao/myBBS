@@ -58,6 +58,7 @@ public class CommonController extends BaseController<Common>{
 		}
 		return map;
 	}
+	
 	@ResponseBody
 	@RequestMapping(value="/save",method=RequestMethod.POST)
 	public Map<String, Object> save(Common common){

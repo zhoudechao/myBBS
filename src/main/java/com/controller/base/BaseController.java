@@ -2,8 +2,6 @@ package com.controller.base;
 
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -109,15 +107,4 @@ public class BaseController<T> {
 		return result;
 	}
 	
-	
-	public String getNowTime(){
-		//得到long类型当前时间
-		long l = System.currentTimeMillis();
-		//new日期对象
-		Date date = new Date(l);
-		//转换提日期输出格式
-		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-		String format = dateFormat.format(date);
-		return format;
-	}
 }

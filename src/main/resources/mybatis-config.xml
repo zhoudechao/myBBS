@@ -38,7 +38,7 @@
          <mapper resource="com/mapper/tool/codeGeneratorMapper.xml" />
          <mapper resource="com/mapper/test/testMapper.xml" />
          <mapper resource="com/mapper/board/BoardMapper.xml" />
-         
+         <mapper resource="com/mapper/buser/BuserMapper.xml" />
     </mappers>
     
 </configuration>

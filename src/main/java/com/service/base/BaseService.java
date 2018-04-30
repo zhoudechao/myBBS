@@ -46,8 +46,10 @@ public abstract class BaseService<T> {
     	return mapper.updateByExampleSelective(entity, example);
     }
 
-    public List<T> selectByExample(Object example) {
-        return mapper.selectByExample(example);
+    public PageInfo<T> selectByExample(int page,int limit,Object example) {
+    	PageHelper.startPage(page, limit);
+    	List<T> list= mapper.selectByExample(example);
+    	return new PageInfo<T>(list);
     }
     
     public PageInfo<T> selectAll(int page,int limit){
