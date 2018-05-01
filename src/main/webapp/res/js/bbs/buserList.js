@@ -146,7 +146,9 @@ layui.use(['form','layer','laydate','table','upload'],function(){
                     curr: 1 //重新从第 1 页开始
                 },
                 where: {
-                	userName: userName
+                	userName: userName,
+                	startTime:startTime,
+                	endTime:endTime
                 }
             })
     });

@@ -31,24 +31,24 @@ layui.use(['form','layer','laydate','table','upload'],function(){
 				{
 					field : 'boardName',
 					title : '版块名称',
-					width : 200
+					width : 120
 				},
 				{
 					field : 'boardPostnum',
 					title : '发帖数量',
-					width : 200
+					width : 90
 				},
 				{
 					field : 'boardTodaynum',
 					title : '今日发帖数',
-					width : 280,
+					width : 120,
 					align : 'center'
 				},
 				{
 					field : 'boardDescription',
 					title : '描述',
 					align : 'center',
-					width : 300
+					width : 250
 				},
 				{
 					field : 'boardCreatetime',
@@ -67,7 +67,7 @@ layui.use(['form','layer','laydate','table','upload'],function(){
 				},*/
 				{
 					title : '操作',
-					width : 350,
+					width : 250,
 					fixed : "right",
 					align : "center",
 					templet : '#flinkbar'

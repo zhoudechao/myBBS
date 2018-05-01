@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mapper.type.TypeMapper">
+  <resultMap id="BaseResultMap" type="com.model.type.Type">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="type_id" jdbcType="INTEGER" property="typeId" />
+    <result column="type_name" jdbcType="VARCHAR" property="typeName" />
+    <result column="type_description" jdbcType="VARCHAR" property="typeDescription" />
+    <result column="type_bh" jdbcType="VARCHAR" property="typeBh" />
+    <result column="zt" jdbcType="VARCHAR" property="zt" />
+    <result column="type_createTime" jdbcType="TIMESTAMP" property="typeCreatetime" />
+    <result column="type_postNum" jdbcType="INTEGER" property="typePostnum" />
+  </resultMap>
+
+</mapper>

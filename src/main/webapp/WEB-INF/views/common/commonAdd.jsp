@@ -18,30 +18,30 @@
 <fieldset class="layui-elem-field layui-field-title site-title">
    <legend><a name="methodRender">编辑公共信息</a></legend>
  </fieldset>
-<form class="layui-form linksAdd">
-	<input type="hidden" name="commonId" value="${common.commonId }">
+<form class="layui-form linksAdd" action="${path}/common/save.do">
+	<input type="hidden" id="commonId" name="commonId" value="${common.commonId }">
 	<div class="layui-form-item">
 		<label class="layui-form-label">公共信息主题</label>
 		<div class="layui-input-block">
-			<input type="text" name="commonTitle" value="${common.commonTitle }" class="layui-input" lay-verify="required" placeholder="请输入公共信息主题" />
+			<input type="text" id="commonTitle" name="commonTitle" value="${common.commonTitle }" class="layui-input" lay-verify="required" placeholder="请输入公共信息主题" />
 		</div>
 	</div>
 	<div class="layui-form-item">
 		<label class="layui-form-label">公共信息内容</label>
 		<div class="layui-input-block">
-			<input type="text" name="commonContent" value="${common.commonContent }" class="layui-input" lay-verify="required" placeholder="请输入公共信息内容" />
+			<input type="text" id="commonContent" name="commonContent" value="${common.commonContent }" class="layui-input" lay-verify="required" placeholder="请输入公共信息内容" />
 		</div>
 	</div>
 	<div class="layui-form-item">
 		<label class="layui-form-label">公共信息编号</label>
 		<div class="layui-input-block">
-			<input type="text" name="commonBh" value="${common.commonBh }" class="layui-input" lay-verify="required" placeholder="请输入公共信息编号" />
+			<input type="text" id="commonBh" name="commonBh" value="${common.commonBh }" class="layui-input" lay-verify="required" placeholder="请输入公共信息编号" />
 		</div>
 	</div>
 	<div class="layui-form-item">
 		<label class="layui-form-label">公共信息描述</label>
 		<div class="layui-input-block">
-			<input type="text" name="commonDescription" value="${common.commonDescription }" class="layui-input" lay-verify="required" placeholder="请输入公共信息描述" />
+			<input type="text" id="commonDescription" name="commonDescription" value="${common.commonDescription }" class="layui-input" lay-verify="required" placeholder="请输入公共信息描述" />
 		</div>
 	</div>
 	<div class="layui-form-item">

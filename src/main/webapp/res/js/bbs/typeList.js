@@ -9,12 +9,12 @@ layui.use(['form','layer','laydate','table','upload'],function(){
     //字典列表
     var tableIns = table.render({
         elem: '#list',
-        url : path + '/common/commonData.do',
+        url : path + '/type/typeData.do',
         page : true,
         cellMinWidth : 95,
         height : "full-104",
-        limit : 5,
-        limits : [5,10,15,20,25],
+        limit : 10,
+        limits : [10,20,30,40],
         id : "tables",
         cols : [[
 				 {
@@ -23,36 +23,48 @@ layui.use(['form','layer','laydate','table','upload'],function(){
 					width : 50
 				},
 				{
-					field: 'commonId',
+					field: 'typeId',
 					width: 80,
 					title: 'ID',
 					sort: true
 				}, 
 				{
-					field : 'commonTitle',
-					title : '公共信息主题',
-					width : 130
+					field : 'typeName',
+					title : '类型名称',
+					width : 120
 				},
 				{
-					field : 'commonContent',
-					title : '公共信息内容',
-					width : 200
+					field : 'typeDescription',
+					title : '类型描述',
+					width : 150
 				},
 				{
-					field : 'commonCreattime',
-					title : '公共信息创建时间',
-					width : 150,
+					field : 'typeBh',
+					title : '类型编号',
+					width : 100,
+					align : 'center'
+				},
+				{
+					field : 'typePostNum',
+					title : '帖子数量',
 					align : 'center',
-					templet:function(d){
-				        return dateFormat(d.boardCreatetime)
+					width : 120
+				},
+				{
+					field : 'typeCreatetime',
+					title : '类型创建时间',
+					align : 'center',
+					width : 200,
+					templet : function(d){
+				        return dateFormat(d.typeCreatetime)
 				      }
 				},
-				{
-					field : 'commonDescription',
-					title : '公共信息描述',
+				/*{
+					field : 'status',
+					title : '状态',
 					align : 'center',
 					width : 200
-				},
+				},*/
 				{
 					title : '操作',
 					width : 250,
@@ -70,7 +82,7 @@ layui.use(['form','layer','laydate','table','upload'],function(){
                     curr: 1 //重新从第 1 页开始
                 },
                 where: {
-                	commonTitle: $(".commonTitle").val() //版块名字
+                	typeName: $(".typeName").val() 
                 }
             })
     });
@@ -78,19 +90,19 @@ layui.use(['form','layer','laydate','table','upload'],function(){
     //跳转到添加版块页面
     function addLink(edit){
         var index = layer.open({
-            title : "添加公共信息",
+            title : "添加类型信息",
             type : 2,
 			area: ['540px', '550px'],
-            content : path + "/common/add.do"
+            content : path + "/type/add.do"
         })
     }
-  //公共信息修改
+  //版块信息修改
     function editLink(edit){
         var index = layer.open({
-            title : "修改公共信息",
+            title : "修类型信息",
             type : 2,
 			area: ['540px', '550px'],
-            content : path + "/common/edit.do?commonId="+edit.commonId
+            content : path + "/type/edit.do?typeId="+edit.typeId
         })
     }
     //绑定添加友情链接事件
@@ -105,12 +117,12 @@ layui.use(['form','layer','laydate','table','upload'],function(){
             linkId = [];
         if(data.length > 0) {
             for (var i in data) {
-                linkId.push(data[i].commonId);
+                linkId.push(data[i].typeId);
             }
-            layer.confirm('确定删除选中的公共信息？', {icon: 3, title: '提示信息'}, function (index) {
+            layer.confirm('确定删除选中的类型？', {icon: 3, title: '提示信息'}, function (index) {
             	var ajaxReturnData;
                 $.ajax({
-		            url: path + '/common/deleteBatch.do',
+		            url: path + '/type/deleteBatch.do',
 		            type: 'post',
 		            async: false,
 		            data: {ids:linkId.toString()},
@@ -127,7 +139,7 @@ layui.use(['form','layer','laydate','table','upload'],function(){
 		        });
             })
         }else{
-            layer.msg("请选择需要删除的公共信息");
+            layer.msg("请选择需要删除的版块信息");
         }
     })
 
@@ -138,13 +150,13 @@ layui.use(['form','layer','laydate','table','upload'],function(){
         if(layEvent === 'edit'){ //编辑
             editLink(data);
         }else if(layEvent === 'del'){ //删除
-            layer.confirm('确定删除此公共信息？',{icon:3, title:'提示信息'},function(index){
+            layer.confirm('确定删除此类型？',{icon:3, title:'提示信息'},function(index){
                 var ajaxReturnData;
 		        $.ajax({
-		            url: path + '/common/delete.do',
+		            url: path + '/type/delete.do',
 		            type: 'post',
 		            async: false,
-		            data: {commonId:data.commonId},
+		            data: {typeId:data.typeId},
 		            success: function (data) {
 		                ajaxReturnData = data.status;
 		            }
@@ -160,13 +172,13 @@ layui.use(['form','layer','laydate','table','upload'],function(){
 				layer.close(index);
             });
         }else if (obj.event === 'disable') {
-			layer.confirm('真的禁用这个公共信息么', function(index) {
+			layer.confirm('真的禁用这个类型么', function(index) {
 				var ajaxReturnData;
 		        $.ajax({
-		            url: path + '/common/setUse.do', //设置为可用
+		            url: path + '/type/setUse.do', //设置为可用
 		            type: 'post',
 		            async: false,
-		            data: {commonId:data.commonId},
+		            data: {typeId:data.typeId},
 		            success: function (data) {
 		                ajaxReturnData = data.status;
 		            }
@@ -183,13 +195,13 @@ layui.use(['form','layer','laydate','table','upload'],function(){
 				
 			});
 		}else if (obj.event === 'able') {
-			layer.confirm('真的将该公共信息置为可用么', function(index) {
+			layer.confirm('真的将该类型置为可用么', function(index) {
 				var ajaxReturnData;
 		        $.ajax({
-		            url: path + '/common/setUse.do',
+		            url: path + '/type/setUse.do',
 		            type: 'post',
 		            async: false,
-		            data: {commonId:data.commonId},
+		            data: {typeId:data.typeId},
 		            success: function (data) {
 		                ajaxReturnData = data.status;
 		            }
@@ -212,25 +224,11 @@ layui.use(['form','layer','laydate','table','upload'],function(){
         //弹出loading
         var index = top.layer.msg('数据提交中，请稍候',{icon: 16,time:false,shade:0.8});
         var ajaxReturnData;
-       /* var commonId=$("#commonId").val();
-        var commonTitle=$("#commonTitle").val();
-        var commonContent=$("#commonContent").val();
-        var commonBh=$("#commonBh").val();
-        var commonDescription=$("#commonDescription").val();*/
-        debugger;
         //登陆验证
         $.ajax({
-            url: path + '/common/save.do',
+            url: path + '/type/save.do',
             type: 'post',
             async: false,
-            /*data:{
-            	commonId:commonId,
-            	commonTitle:commonTitle,
-            	commonContent:commonContent,
-            	commonBh:commonBh,
-            	commonDescription:commonDescription
-            },*/
-            //dataType: 'json', 
             data: data.field,
             success: function (data) {
                 ajaxReturnData = data.status;
@@ -247,6 +245,7 @@ layui.use(['form','layer','laydate','table','upload'],function(){
         	top.layer.msg('保存失败', {icon: 5});
         }
         return false;
-    });
-
+    })
+    
+ 
 })

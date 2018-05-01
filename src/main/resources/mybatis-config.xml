@@ -14,21 +14,10 @@
          <typeAlias alias="Dict" type="com.model.sys.Dict"/>
          <typeAlias alias="Test" type="com.model.test.Test"/>
          <typeAlias alias="Board" type="com.model.board.Board"/>
+         <typeAlias alias="Common" type="com.model.common.Common"/>
+         <typeAlias alias="Type" type="com.model.type.Type"/>
          
     </typeAliases>
-    <!-- <plugins>
-    com.github.pagehelper为PageHelper类所在包名
-	    <plugin interceptor="com.github.pagehelper.PageInterceptor">
-	        使用下面的方式配置参数，后面会有所有的参数介绍
-	        <property name="helperDialect" value="mysql"/>
-            <property name="offsetAsPageNum" value="false"/>
-            <property name="rowBoundsWithCount" value="false"/>
-            <property name="pageSizeZero" value="true"/>
-            <property name="reasonable" value="true"/>
-            <property name="supportMethodsArguments" value="true"/>
-            <property name="returnPageInfo" value="none"/>
-		</plugin>
-	</plugins> -->
     <mappers>
         <mapper resource="com/mapper/user/userMapper.xml" />
         <mapper resource="com/mapper/web/friendLinkMapper.xml" />
@@ -39,6 +28,8 @@
          <mapper resource="com/mapper/test/testMapper.xml" />
          <mapper resource="com/mapper/board/BoardMapper.xml" />
          <mapper resource="com/mapper/buser/BuserMapper.xml" />
+         <mapper resource="com/mapper/common/CommonMapper.xml" />
+         <mapper resource="com/mapper/type/TypeMapper.xml" />
     </mappers>
     
 </configuration>
