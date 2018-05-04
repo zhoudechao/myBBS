@@ -3,11 +3,13 @@ package com.controller.type;
 import java.sql.Timestamp;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -96,5 +98,14 @@ public class TypeController extends BaseController<Type> {
 			e.printStackTrace();
 		}
 		return map;
+	}
+	
+	//前台主页面中查询出帖子的类型
+	@ResponseBody
+	@RequestMapping(value="/listType",method=RequestMethod.POST,produces="application/json;charset=UTF-8"
+			,consumes="application/json;charset=UTF-8")
+	public List<Type> listType(){
+		List<Type> selectAll = typeService.selectAllbyExample();
+		return selectAll;
 	}
 }

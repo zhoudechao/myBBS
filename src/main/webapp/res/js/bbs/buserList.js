@@ -261,4 +261,30 @@ layui.use(['form','layer','laydate','table','upload'],function(){
 			});
 		}
     });
+    
+    form.on('submit(addLink)', function (data) {
+        var field = data.field;
+        var formElem = $(data.form);
+        var elem = $(data.elem);
+        var tableId ="tables";
+        debugger;
+        // 重置勾选状态记录
+        if (tableId) {
+            // 处理之后的结果，如果需要处理的话
+            //var whereTemp = {};
+            //layui.each(field, function (index, value) {
+                // 如果需要对数据进行处理
+            //});
+
+            table.reload(tableId, {
+                where: field,
+                page: {curr: 1}
+            });
+        } else {
+            console.log('查询错误：查询按钮没有配置要查询的table id!');
+        }
+
+        return false;
+    });
+    
 })

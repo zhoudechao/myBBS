@@ -30,7 +30,8 @@
 				<div class="layui-input-inline">
 					<input type="text" class="layui-input endTime" placeholder="请输入结束时间" />
 				</div>
-				<a class="layui-btn search_btn" data-type="reload"><i class="layui-icon">&#xe615;</i>搜索</a>
+				<!-- <a class="layui-btn search_btn" data-type="reload"><i class="layui-icon">&#xe615;</i>搜索</a> -->
+				<a class="layui-btn layui-block" lay-filter="addLink" lay-submit><i class="layui-icon">&#xe615;</i>搜索</a>
 			</div>
 			<div class="layui-inline">
 				<a class="layui-btn layui-btn-danger layui-btn-normal delAll_btn"><i class="layui-icon">&#xe640;</i>批量删除</a>

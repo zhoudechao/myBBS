@@ -8,6 +8,7 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 
 import tk.mybatis.mapper.common.Mapper;
+import tk.mybatis.mapper.entity.Example;
 
 public abstract class BaseService<T> {
 	@Autowired
@@ -51,6 +52,9 @@ public abstract class BaseService<T> {
     	List<T> list= mapper.selectByExample(example);
     	return new PageInfo<T>(list);
     }
+    public List<T> selectAll(){
+    	return mapper.selectAll();
+    }
     
     public PageInfo<T> selectAll(int page,int limit){
     	PageHelper.startPage(page, limit);
@@ -72,6 +76,10 @@ public abstract class BaseService<T> {
     	PageHelper.startPage(page, limit);
     	List<T> list=mapper.select(entity);
     	return new PageInfo<T>(list);
+    }
+    
+    public List<T> selectByExample(Example example){
+    	return mapper.selectByExample(example);
     }
 }
 

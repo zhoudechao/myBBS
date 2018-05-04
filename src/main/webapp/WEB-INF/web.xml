@@ -28,6 +28,10 @@
     <servlet-name>springMVC</servlet-name>
     <url-pattern>*.do</url-pattern>
   </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>springMVC</servlet-name>
+    <url-pattern>*.action</url-pattern>
+  </servlet-mapping>
   <context-param>
     <param-name>log4jConfigLocation</param-name>
     <param-value>classpath:log4j.properties</param-value>
@@ -64,11 +68,11 @@
 	 <filter-mapping>
 	  <filter-name>login</filter-name>
 	  <url-pattern>*.do</url-pattern>
+	</filter-mapping>
 	 <!--  <url-pattern>/menu/*</url-pattern>
 	  <url-pattern>/role/*</url-pattern>
 	  <url-pattern>/user/*</url-pattern>
 	  <url-pattern>/friendLink/*</url-pattern> -->
-	</filter-mapping>
 
   <!-- 连接池 启用 Web 监控统计功能    start-->  
   <filter>
@@ -83,6 +87,32 @@
      <filter-name>DruidWebStatFilter</filter-name>
      <url-pattern>/*</url-pattern>
   </filter-mapping>
+  
+  <!-- 通过CORS技术实现AJAX跨域访问 -->
+	<filter>
+		<filter-name>corsFilter</filter-name>
+		<filter-class>com.filter.CorsFilter</filter-class>
+		<init-param>
+			<param-name>allowOrigin</param-name>
+			<param-value>http://127.0.0.1:8080,http://127.0.0.1:8020</param-value>
+		</init-param>
+		<init-param>
+			<param-name>allowMethods</param-name>
+			<param-value>GET,POST,PUT,DELETE,OPTIONS</param-value>
+		</init-param>
+		<init-param>
+			<param-name>allowCredentials</param-name>
+			<param-value>true</param-value>
+		</init-param>
+		<init-param>
+			<param-name>allowHeaders</param-name>
+			<param-value>Content-Type,X-Token</param-value>
+		</init-param>
+	</filter> 
+	<filter-mapping>
+		<filter-name>corsFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
   <servlet>
      <servlet-name>DruidStatView</servlet-name>
      <servlet-class>com.alibaba.druid.support.http.StatViewServlet</servlet-class>
@@ -91,6 +121,15 @@
      <servlet-name>DruidStatView</servlet-name>
      <url-pattern>/druid/*</url-pattern>
   </servlet-mapping>
+  <!-- 支持restful风格 -->
+   <filter>
+  	<filter-name>HiddenHttpMethodFilter</filter-name>
+  	<filter-class>org.springframework.web.filter.HiddenHttpMethodFilter</filter-class>
+  </filter>
+  <filter-mapping>
+  	<filter-name>HiddenHttpMethodFilter</filter-name>
+  	<url-pattern>/*</url-pattern>
+  </filter-mapping>
   <!-- 连接池 启用 Web 监控统计功能    end-->
   
   <!-- ckfinder配置 start -->

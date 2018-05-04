@@ -4,6 +4,7 @@
 package com.util;
 
 import java.io.UnsupportedEncodingException;
+import java.util.UUID;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -20,7 +21,18 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
 	
     private static final char SEPARATOR = '_';
     private static final String CHARSET_NAME = "UTF-8";
-    
+    /**
+	 * 存储当前登录用户id的字段名
+	 */
+	public static final String CURRENT_USER_ID = "CURRENT_USER_ID";
+
+	/**
+	 * token有效期（小时）
+	 */
+	public static final int TOKEN_EXPIRES_HOUR = 72;
+
+	/**  存放Token的header字段  (@author: rico) */      
+	public static final String DEFAULT_TOKEN_NAME = "X-Token";
     /**
      * 转换为字节数组
      * @param str
@@ -287,5 +299,16 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
     	result.append(val.substring(1));
     	return result.toString();
     }
+    
+    public static boolean isNotEmpty(String str) {
+		if (str != null && str.length() != 0) {
+			return true;
+		}
+		return false;
+	}
+
+    public static String createUUID(){
+		return UUID.randomUUID().toString();
+	}
     
 }

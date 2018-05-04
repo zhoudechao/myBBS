@@ -1,16 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
-    xmlns:context="http://www.springframework.org/schema/context" xmlns:tx="http://www.springframework.org/schema/tx"
-    xsi:schemaLocation="
-        http://www.springframework.org/schema/beans
-        http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
-        http://www.springframework.org/schema/context
-        http://www.springframework.org/schema/context/spring-context-4.0.xsd
-        http://www.springframework.org/schema/tx
-        http://www.springframework.org/schema/tx/spring-tx-4.0.xsd">
-
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.0.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd">
+	
+	<!-- 启用注解扫描，并定义组件查找规则 ，除了@controller，扫描所有的Bean -->
+	<context:component-scan base-package="com">
+		<context:exclude-filter type="annotation"
+			expression="org.springframework.stereotype.Controller" />
+	</context:component-scan>
     <bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+	    <!-- 可从jvm虚拟机的参数中获得配置信息 -->
+		<property name="systemPropertiesModeName" value="SYSTEM_PROPERTIES_MODE_OVERRIDE" />
+		<property name="ignoreResourceNotFound" value="true" />
 	    <property name="locations">
 	        <list>
 	           <value>classpath:dbconfig.properties</value>
@@ -21,10 +29,10 @@
 	<!-- 阿里 druid 数据库连接池 -->  
     <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close">
 		<!-- 数据库基本信息配置 -->
-		<property name="url" value="${url}"/>
-		<property name="username" value="${username}" />
-		<property name="password" value="${password}" />
-		<property name="driverClassName" value="${driverClassName}" />
+		<property name="url" value="${jdbc.url}"/>
+		<property name="username" value="${jdbc.username}" />
+		<property name="password" value="${jdbc.password}" />
+		<property name="driverClassName" value="${jdbc.driverClassName}" />
 		<property name="filters" value="${filters}" />
 		<!-- 最大并发连接数 -->
 		<property name="maxActive" value="${maxActive}"/>
@@ -74,7 +82,7 @@
 		    </array>
 		  </property>
     </bean>
-
+	
     <!--
         3. mybatis自动扫描加载Sql映射文件/接口 : MapperScannerConfigurer sqlSessionFactory
 
@@ -84,7 +92,7 @@
         <property name="basePackage" value="com.mapper"></property>
        <!--  <property name="sqlSessionFactory" ref="sqlSessionFactory"></property> -->
     </bean>
-
+	
     <!--
         4. 事务管理 : DataSourceTransactionManager dataSource:引用上面定义的数据源
     -->
@@ -97,5 +105,31 @@
          transaction-manager：引用上面定义的事务管理器
      -->
     <tx:annotation-driven transaction-manager="txManager" />
+	<!-- 配置json数据 -->  
+    <bean  
+            class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">  
+        <property name="messageConverters">  
+            <list>  
+                <ref bean="mappingJackson2HttpMessageConverter" />  
+            </list>  
+        </property>  
+    </bean>  
+    <bean id="mappingJackson2HttpMessageConverter"  
+          class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">  
+        <property name="supportedMediaTypes">  
+            <list>  
+                <value>text/html;charset=UTF-8</value>  
+                <value>text/json;charset=UTF-8</value>  
+                <value>application/json;charset=UTF-8</value>  
+            </list>  
+        </property>  
+    </bean>  
+    <!--注册Bean验证后处理器 -->
+	<bean
+		class="org.springframework.validation.beanvalidation.BeanValidationPostProcessor" />
 
+	<!--注册方法验证的后处理器 -->
+	<bean
+		class="org.springframework.validation.beanvalidation.MethodValidationPostProcessor" />
+    <bean id="tokenManager" class="com.authorization.DefaultTokenManager"></bean>
 </beans>

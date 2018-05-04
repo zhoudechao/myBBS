@@ -54,8 +54,43 @@
   </properties>
 
   <dependencies>
-  
-  	
+  	<!-- validator -->
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-validator</artifactId>
+			<version>5.2.4.Final</version>
+		</dependency>
+  	 <!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-core -->
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-core</artifactId>
+            <version>2.4.6</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind -->
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>2.4.6</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-annotations -->
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-annotations</artifactId>
+            <version>2.4.6</version>
+        </dependency>
+  	<!-- JSON: jackson -->
+		<dependency>
+			<groupId>org.codehaus.jackson</groupId>
+			<artifactId>jackson-core-asl</artifactId>
+			<version>1.9.12</version>
+		</dependency>
+		 <dependency>  
+	        <groupId>org.codehaus.jackson</groupId>  
+	        <artifactId>jackson-mapper-asl</artifactId>  
+	        <version>1.9.12</version>  
+	        <type>jar</type>  
+	        <scope>compile</scope>  
+ 		</dependency> 
   	<!-- https://mvnrepository.com/artifact/tk.mybatis/mapper -->
 	<dependency>
 	    <groupId>tk.mybatis</groupId>
@@ -191,19 +226,16 @@
 		    <artifactId>aopalliance</artifactId>
 		    <version>1.0</version>
 		</dependency>
-		
 		<dependency>
-		    <groupId>aspectj</groupId>
-		    <artifactId>aspectjrt</artifactId>
-		    <version>1.5.2</version>
+			<groupId>org.aspectj</groupId>
+			<artifactId>aspectjrt</artifactId>
+			<version>1.8.10</version>
 		</dependency>
-		<!-- https://mvnrepository.com/artifact/aspectj/aspectjweaver -->
 		<dependency>
-		    <groupId>aspectj</groupId>
-		    <artifactId>aspectjweaver</artifactId>
-		    <version>1.5.2</version>
+			<groupId>org.aspectj</groupId>
+			<artifactId>aspectjweaver</artifactId>
+			<version>1.8.10</version>
 		</dependency>
-		
 		<!-- https://mvnrepository.com/artifact/com.alibaba/druid 阿里 连接池 -->
 		<dependency>
 		    <groupId>com.alibaba</groupId>
