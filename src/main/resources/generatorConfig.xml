@@ -19,10 +19,10 @@
 
 		<!-- 配置连接数据库的基本信息 -->
 		<jdbcConnection 
-			driverClass="${driverClassName}"
-			connectionURL="${url}" 
-			userId="${username}" 
-			password="${password}">
+			driverClass="${jdbc.driverClassName}"
+			connectionURL="${jdbc.url}" 
+			userId="${jdbc.username}" 
+			password="${jdbc.password}">
 		</jdbcConnection>
 	
 		<!-- 配置Java实体类存放位置 -->

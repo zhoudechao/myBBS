@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.authorization.IgnoreSecurityType;
 import com.model.base.AjaxResult;
 import com.model.sys.Menu;
 import com.model.sys.MenuTree;
@@ -22,6 +23,7 @@ import com.service.user.UserService;
 
 @Controller
 @RequestMapping("/menu")
+@IgnoreSecurityType
 public class MenuController {
 
 	@Autowired

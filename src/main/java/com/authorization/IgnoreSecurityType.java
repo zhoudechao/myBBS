@@ -13,9 +13,9 @@ import java.lang.annotation.Target;
  * @author rico       
  * @created 2017年7月4日 下午4:25:32    
  */      
-@Target(ElementType.METHOD)
+@Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME) 
 @Documented
-public @interface IgnoreSecurity {
+public @interface IgnoreSecurityType {
 
 }

@@ -13,10 +13,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.authorization.IgnoreSecurityType;
 import com.model.buser.Buser;
 import com.service.buser.BuserService;
 @Controller
 @RequestMapping("/register")
+@IgnoreSecurityType
 public class RegisterController {
 	@Autowired
 	private BuserService buserService;
@@ -58,7 +60,15 @@ public class RegisterController {
 		}
 		return map;
 	}
-	
+	/**
+	 * @Description: ajax异步验证用户名和邮箱是否已经存在
+	 * @param @param buser
+	 * @param @return   
+	 * @return Map<String,Object>  
+	 * @throws
+	 * @author zhoudechao
+	 * @date 2018年5月6日
+	 */
 	@ResponseBody
 	@RequestMapping(value="/getBuserAndEmail",method=RequestMethod.POST,produces="application/json;charset=UTF-8"
 			,consumes="application/json;charset=UTF-8")

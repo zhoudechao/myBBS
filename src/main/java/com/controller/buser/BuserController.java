@@ -6,9 +6,14 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.authorization.IgnoreSecurityType;
 import com.controller.base.BaseController;
 import com.github.pagehelper.PageInfo;
 import com.model.buser.Buser;
@@ -19,6 +24,7 @@ import net.sf.jsqlparser.expression.DateTimeLiteralExpression.DateTime;
 
 @Controller
 @RequestMapping("/buser")
+@IgnoreSecurityType
 public class BuserController extends BaseController<Buser>{
 	@Autowired
 	private BuserService buserService;
@@ -26,9 +32,10 @@ public class BuserController extends BaseController<Buser>{
 	@SuppressWarnings("all")
 	@ResponseBody
 	@RequestMapping(value="/buserData")
-	public Map<String, Object> boardData(Model model,BuserExtend buserExtend){
+	public Map<String, Object> boardData(Model model,@RequestParam("userName") String userName,
+			@RequestParam("startTime") DateTime startTime,@RequestParam("endTime") DateTime endTime){
 		Map<String, Object> map=new HashMap<String, Object>();
-		try {
+		/*try {
 			PageInfo<Buser> info=buserService.selectBuser(buserExtend);
 			map.put("code", 0);
 	        map.put("msg", "");
@@ -36,7 +43,7 @@ public class BuserController extends BaseController<Buser>{
 	        map.put("data", info.getList());
 		} catch (Exception e) {
 			e.printStackTrace();
-		}
+		}*/
 		return map;
 	}
 	
@@ -78,5 +85,15 @@ public class BuserController extends BaseController<Buser>{
 			e.printStackTrace();
 		}
 		return map;
+	}
+	@ResponseBody
+	@RequestMapping(value="/getBuser",method=RequestMethod.POST,produces="application/json;charset=UTF-8"
+			,consumes="application/json;charset=UTF-8")
+	public Buser getBuser(@RequestParam("userId") Integer id){
+		if(id !=null){
+			Buser buser = buserService.selectByKey(id);
+			return buser;
+		}
+		return null;
 	}
 }

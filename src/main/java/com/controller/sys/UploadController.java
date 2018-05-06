@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import com.authorization.IgnoreSecurityType;
 import com.service.user.UserService;
 import com.util.Tool;
 import com.util.UploadUtil;
@@ -28,6 +29,7 @@ import com.util.UploadUtil;
  */
 @Controller
 @RequestMapping("/upload")
+@IgnoreSecurityType
 public class UploadController {
 
 	@Autowired

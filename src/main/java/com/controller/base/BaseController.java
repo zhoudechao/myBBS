@@ -10,10 +10,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.authorization.IgnoreSecurityType;
 import com.model.user.User;
 import com.service.base.BaseService;
 import com.service.user.UserService;
-
+@IgnoreSecurityType
 public class BaseController<T> {
 	@Autowired
 	private UserService userService;
@@ -69,7 +70,6 @@ public class BaseController<T> {
 	 */
 	@RequestMapping("/add")
 	public String form(HttpServletRequest request,Model model){
-		//String name=this.getPojoName();
 		return "views/"+name+"/"+name+"Add";
 	}
 	/**

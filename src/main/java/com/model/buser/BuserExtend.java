@@ -1,13 +1,25 @@
 package com.model.buser;
 
+import java.util.List;
+
+import com.model.post.Post;
+
 import net.sf.jsqlparser.expression.DateTimeLiteralExpression.DateTime;
 
 public class BuserExtend extends Buser {
-
+	
 	private int page;
 	private int limit;
 	private DateTime startTime;
 	private DateTime endTime;
+	private List<Post> list;
+	
+	public List<Post> getList() {
+		return list;
+	}
+	public void setList(List<Post> list) {
+		this.list = list;
+	}
 	public int getPage() {
 		return page;
 	}

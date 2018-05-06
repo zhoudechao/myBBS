@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mapper.post.PostMapper">
+  <resultMap id="BaseResultMap" type="com.model.post.PostExtend">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="post_id" jdbcType="INTEGER" property="postId" />
+    <result column="post_parentId" jdbcType="INTEGER" property="postParentid" />
+    <result column="post_boardId" jdbcType="INTEGER" property="postBoardid" />
+    <result column="post_userId" jdbcType="INTEGER" property="postUserid" />
+    <result column="post_userName" jdbcType="VARCHAR" property="postUsername" />
+    <result column="post_topic" jdbcType="VARCHAR" property="postTopic" />
+    <result column="post_content" jdbcType="VARCHAR" property="postContent" />
+    <result column="post_createTime" jdbcType="TIMESTAMP" property="postCreatetime" />
+    <result column="post_length" jdbcType="INTEGER" property="postLength" />
+    <result column="post_order" jdbcType="INTEGER" property="postOrder" />
+    <result column="post_parentName" jdbcType="VARCHAR" property="postParentname" />
+    <result column="post_isBest" jdbcType="VARCHAR" property="postIsbest" />
+    <result column="post_ip" jdbcType="VARCHAR" property="postIp" />
+    <result column="post_isupload" jdbcType="VARCHAR" property="postIsupload" />
+    <result column="zt" jdbcType="VARCHAR" property="zt" />
+    <result column="post_description" jdbcType="VARCHAR" property="postDescription" />
+    <result column="post_typeId" jdbcType="INTEGER" property="postTypeid" />
+    <result column="post_typeName" jdbcType="VARCHAR" property="postTypename" />
+    <result column="post_isEnd" jdbcType="VARCHAR" property="postIsend" />
+    
+    <result column="type_id" property="type.typeId"/>
+    <result column="type_name" property="type.typeName"/>
+    <result column="board_id" property="boardId"/>
+    <result column="board_name" property="boardName"/>
+    <result column="user_id" property="userId"/>
+    <result column="user_name" property="userName"/>
+  </resultMap>
+	
+	<select id="selectPostByCondition" parameterType="com.model.post.PostExtend" resultMap="BaseResultMap">
+		SELECT p.*,t.`type_id`,t.`type_name`,b.`board_id`,b.`board_name`,u.`user_id`,u.`user_name` FROM bbs_post p,bbs_type t,bbs_board b,bbs_user u 
+			WHERE p.post_typeId=t.type_id AND p.post_boardId=b.board_id AND p.post_userId=u.user_id AND p.post_id=1
+	</select>
+</mapper>

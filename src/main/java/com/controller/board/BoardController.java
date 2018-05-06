@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.authorization.IgnoreSecurityType;
 import com.controller.base.BaseController;
 import com.github.pagehelper.PageInfo;
 import com.model.board.Board;
@@ -19,6 +20,7 @@ import com.service.board.BoardService;
 
 @Controller
 @RequestMapping("/board")
+@IgnoreSecurityType
 public class BoardController extends BaseController<Board>{
 
 	/*@Autowired
@@ -35,7 +37,6 @@ public class BoardController extends BaseController<Board>{
 		model.addAttribute("user",user);
 		return "views/board/boardList";
 	}*/
-	@SuppressWarnings("all")
 	@ResponseBody
 	@RequestMapping(value="/boardData")
 	public Map<String, Object> boardData(Model model,int page,int limit,Board board){

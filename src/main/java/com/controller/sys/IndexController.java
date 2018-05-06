@@ -8,6 +8,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.authorization.IgnoreSecurityType;
+
 /**
  * 首页Controller
  * @author oneyuanma
@@ -15,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
  */
 @Controller
 @RequestMapping("/index")
+@IgnoreSecurityType
 public class IndexController {
 
 	private static Logger log = Logger.getLogger(IndexController.class);

@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.authorization.IgnoreSecurityType;
 import com.controller.base.BaseController;
 import com.github.pagehelper.PageInfo;
 import com.model.board.Board;
@@ -23,6 +24,7 @@ import com.service.type.TypeService;
 
 @Controller
 @RequestMapping("/type")
+@IgnoreSecurityType
 public class TypeController extends BaseController<Type> {
 	@Autowired
 	private TypeService typeService;

@@ -12,6 +12,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.authorization.IgnoreSecurity;
+import com.authorization.IgnoreSecurityType;
 import com.model.base.AjaxResult;
 import com.model.user.User;
 import com.service.user.UserService;
@@ -23,6 +25,7 @@ import com.util.Tool;
  */
 @Controller
 @RequestMapping("/login")
+@IgnoreSecurityType
 public class LoginController {
 
 	@Autowired

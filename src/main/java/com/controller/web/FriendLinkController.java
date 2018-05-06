@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.authorization.IgnoreSecurityType;
 import com.model.user.User;
 import com.model.web.FriendLink;
 import com.service.user.UserService;
@@ -22,6 +23,7 @@ import com.service.web.FriendLinkService;
 
 @Controller
 @RequestMapping("/friendLink")
+@IgnoreSecurityType
 public class FriendLinkController {
 
 	@Autowired

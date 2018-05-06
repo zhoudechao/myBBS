@@ -12,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.authorization.IgnoreSecurityType;
 import com.model.base.AjaxResult;
 import com.model.tool.TableFields;
 import com.model.tool.TemplateParams;
@@ -26,6 +27,7 @@ import com.service.user.UserService;
  */
 @Controller
 @RequestMapping("/codeGenerator")
+@IgnoreSecurityType
 public class CodeGeneratorController {
 	
 	private Logger logger = Logger.getLogger(CodeGeneratorController.class);

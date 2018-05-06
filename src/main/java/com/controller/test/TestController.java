@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.authorization.IgnoreSecurityType;
 import com.model.test.Test;
 import com.model.user.User;
 import com.service.test.TestService;
@@ -26,6 +27,7 @@ import com.service.user.UserService;
  */
 @Controller
 @RequestMapping("/test")
+@IgnoreSecurityType
 public class TestController {
 
 	@Autowired

@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.authorization.IgnoreSecurityType;
 import com.controller.base.BaseController;
 import com.github.pagehelper.PageInfo;
 import com.model.common.Common;
@@ -20,6 +21,7 @@ import com.service.common.CommonService;
 
 @Controller
 @RequestMapping("/common")
+@IgnoreSecurityType
 public class CommonController extends BaseController<Common>{
 	@Autowired
 	private CommonService commonService;

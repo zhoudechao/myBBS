@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.authorization.IgnoreSecurityType;
 import com.model.sys.Role;
 import com.model.user.User;
 import com.service.sys.RoleService;
@@ -22,6 +23,7 @@ import com.util.Tool;
 
 @Controller
 @RequestMapping("/user")
+@IgnoreSecurityType
 public class UserController {
 
 	@Autowired

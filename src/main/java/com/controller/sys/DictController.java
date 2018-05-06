@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.authorization.IgnoreSecurityType;
 import com.model.sys.Dict;
 import com.model.user.User;
 import com.service.sys.DictService;
@@ -21,6 +22,7 @@ import com.service.user.UserService;
 
 @Controller
 @RequestMapping("/dict")
+@IgnoreSecurityType
 public class DictController {
 
 	@Autowired

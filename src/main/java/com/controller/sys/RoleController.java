@@ -14,11 +14,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.authorization.IgnoreSecurityType;
 import com.model.sys.Role;
 import com.service.sys.RoleService;
 
 @Controller
 @RequestMapping("/role")
+@IgnoreSecurityType
 public class RoleController {
 
 	@Autowired
