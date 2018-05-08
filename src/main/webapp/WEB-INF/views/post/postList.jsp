@@ -1,0 +1,71 @@
+<%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
+<%@ include file="/WEB-INF/inc/taglibs.jsp"%>
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>用户管理</title>
+	<meta name="renderer" content="webkit">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="format-detection" content="telephone=no">
+	<link rel="stylesheet" href="${path}/res/layui/css/layui.css" media="all" >
+	<link rel="stylesheet" href="${path}/res/css/public.css" media="all" />
+</head>
+<body class="">
+	<blockquote class="layui-elem-quote quoteBox">
+		<form class="layui-form">
+			<div class="layui-inline">
+				标题：
+				<div class="layui-input-inline">
+					<input type="text" class="layui-input postTopic" placeholder="请输入搜索帖子标题" />
+				</div>
+				用户：
+				<div class="layui-input-inline">
+					<input type="text" class="layui-input postUsername" placeholder="请输入用户名" />
+				</div>
+				开始时间：
+				<div class="layui-input-inline">
+					<input type="text" class="layui-input startTime" placeholder="请输入开始时间" />
+				</div>
+				结束时间：
+				<div class="layui-input-inline">
+					<input type="text" class="layui-input endTime" placeholder="请输入结束时间" />
+				</div><br>
+				类型：
+				<div class="layui-select-title" style="width:150px;">
+			      <select name="postTypename"  lay-filter="postTypename" id="tName">	
+			      </select>
+			    </div>
+				版块：
+				<div class="layui-select-title" style="width:150px;">
+			      <select name="postBoardname"  lay-filter="postBoardname" id="bName">
+			      </select>
+			    </div>
+				<a class="layui-btn search_btn" data-type="reload"><i class="layui-icon">&#xe615;</i>搜索</a>
+			</div>
+		<!-- 	<div class="layui-inline">
+				<a class="layui-btn layui-btn-danger layui-btn-normal delAll_btn"><i class="layui-icon">&#xe640;</i>批量删除</a>
+			</div> -->
+		</form>
+	</blockquote>
+	<table class="layui-table" id="list" lay-filter="tables"></table>
+
+	<script type="text/html" id="flinkbar">
+  		{{#  if(d.zt === '0'){ }}
+     		<a class="layui-btn layui-btn-warm  layui-btn-xs" lay-event="disable"><i class="fa fa-ban"></i>&nbsp;禁用</a>
+  		{{#  } else { }}
+			<a class="layui-btn layui-btn-warm  layui-btn-xs" lay-event="able"><i class="fa fa-circle-o"></i>&nbsp;置为可用</a>
+  		{{#  } }}
+      <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del"><i class="layui-icon">&#xe640;</i>删除</a>
+	</script>
+	<script type="text/javascript" src="${path}/res/layui/layui.js"></script>
+	<script type="text/javascript" src="${path}/res/js/bbs/postList.js"></script>
+	<script type="text/javascript" src="${path}/res/js/util/bbsUtil.js"></script>
+	<script type="text/javascript">
+		var path = "${path}";
+	</script>
+</body>
+</html>

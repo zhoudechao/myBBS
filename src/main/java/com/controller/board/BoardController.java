@@ -1,8 +1,10 @@
 package com.controller.board;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -182,4 +184,29 @@ public class BoardController extends BaseController<Board>{
 		}
 		return result;
 	}*/
+	@SuppressWarnings("unused")
+	/**
+	 * @Description: 根据下拉框异步的加载版块信息的数据
+	 * @param @return   
+	 * @return Map<String,String>  
+	 * @throws
+	 * @author zhoudechao
+	 * @date 2018年5月7日
+	 */
+	@ResponseBody
+	@RequestMapping(value="/selectAllForMap",method=RequestMethod.POST)
+	public List<Map<String, Object>> selectAllForMap(){
+		List<Map<String, Object>> list=new ArrayList<Map<String,Object>>();
+		list=boardService.selectAllForMap();
+		Map<String, Object> map=new HashMap<String, Object>();
+		if(map!=null){
+			map.put("status", "0");
+			list.add(map);
+			return list;
+		}else{
+			map.put("msg", "查询版块异常");
+			map.put("status", "1");
+			return list;
+		}
+	}
 }

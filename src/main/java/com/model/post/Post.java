@@ -22,6 +22,9 @@ public class Post {
     @Column(name = "post_boardId")
     private Integer postBoardid;
 
+    @Column(name = "post_boardName")
+    private String postBoardname;
+
     /**
      * 所属用户的编号
      */
@@ -144,6 +147,20 @@ public class Post {
      */
     public void setPostBoardid(Integer postBoardid) {
         this.postBoardid = postBoardid;
+    }
+
+    /**
+     * @return post_boardName
+     */
+    public String getPostBoardname() {
+        return postBoardname;
+    }
+
+    /**
+     * @param postBoardname
+     */
+    public void setPostBoardname(String postBoardname) {
+        this.postBoardname = postBoardname;
     }
 
     /**

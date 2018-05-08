@@ -13,5 +13,7 @@
     <result column="type_createTime" jdbcType="TIMESTAMP" property="typeCreatetime" />
     <result column="type_postNum" jdbcType="INTEGER" property="typePostnum" />
   </resultMap>
-
+	<select id="selectAllForMap" resultType="java.util.Map">
+  		SELECT t.`type_id` typyId,t.`type_name` typeName FROM bbs_type t 
+  	</select>
 </mapper>

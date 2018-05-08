@@ -5,7 +5,8 @@ layui.use(['form','layer','laydate','table','upload'],function(){
         laydate = layui.laydate,
         upload = layui.upload,
         table = layui.table;
-    //这个部分是时间范围选择的时候用到
+
+  //这个部分是时间范围选择的时候用到
     var nowTime = new Date().valueOf();
     var max = null;
     var start = laydate.render({
@@ -33,17 +34,14 @@ layui.use(['form','layer','laydate','table','upload'],function(){
         }
     });
     
-    
     //字典列表
     var tableIns = table.render({
         elem: '#list',
-        url : path + '/buser/buserData.do',
+        url : path + '/post/postData.do',
         page : true,
         cellMinWidth : 95,
         height : "full-104",
-       //dataType:"json",  
-        //contentType:"application/json;charset=utf-8",
-        limit : 5,
+        limit : 10,
         limits : [5,10,15,20,25],
         id : "tables",
         cols : [[
@@ -53,83 +51,63 @@ layui.use(['form','layer','laydate','table','upload'],function(){
 					width : 50
 				},
 				{
-					field: 'userId',
-					width: 70,
+					field: 'postId',
+					width: 80,
 					title: 'ID',
-					align : 'center',
 					sort: true
 				}, 
 				{
-					field : 'userName',
-					title : '姓名',
-					align : 'center',
-					width : 100
+					field : 'postTopic',
+					title : '标题',
+					width : 120
 				},
 				{
-					field : 'userEmail',
-					title : '邮箱',
-					align : 'center',
-					width : 180
+					field : 'postContent',
+					title : '内容',
+					width : 90
 				},
 				{
-					field : 'userSex',
-					title : '性别',
-					width : 50,
+					field : 'postTypename',
+					title : '所属类型',
+					width : 120,
 					align : 'center'
 				},
 				{
-					field : 'userPostnum',
-					title : '发帖数量',
-					align : 'center',
-					width : 90
+					field : 'postBoardname',
+					title : '所属版块',
+					width : 120,
+					align : 'center'
 				},
 				{
-					field : 'userJoindate',
-					title : '创建时间',
-					align : 'center',
-					width : 180,
-					templet : function(d){
-				        return dateFormat(d.userJoindate)
-				      }
+					field : 'postUsername',
+					title : '所属用户',
+					width : 120,
+					align : 'center'
 				},
 				{
-					field : 'userLastlogin',
-					title : '上次登录时间',
-					align : 'center',
-					width : 180,
-					templet : function(d){
-				        return dateFormat(d.userLastlogin)
-				      }
-				},
-				{
-					field : 'userLogins',
-					title : '登录次数',
-					align : 'center',
-					width : 90
-				},
-				{
-					field : 'userBirthday',
-					title : '生日',
-					align : 'center',
-					width : 150
-				},
-				{
-					field : 'userDescription',
+					field : 'postDescription',
 					title : '描述',
 					align : 'center',
-					width : 150
-				},
-				/*{
-					field : 'startTime',
-					title : '开始时间'
+					width : 250
 				},
 				{
-					field : 'endTime',
-					title : '结束时间'
+					field : 'post_createTime',
+					title : '创建时间',
+					align : 'center',
+					width : 200,
+					templet : function(d){
+				        return dateFormat(d.boardCreatetime)
+				      }
+				},
+				/*{
+					field : 'status',
+					title : '状态',
+					align : 'center',
+					width : 200
 				},*/
 				{
 					title : '操作',
-					width : 200,
+					width : 250,
 					fixed : "right",
 					align : "center",
 					templet : '#flinkbar'
@@ -139,18 +117,46 @@ layui.use(['form','layer','laydate','table','upload'],function(){
 
     //搜索
     $(".search_btn").on("click",function(){
+    	var boardName=$("#bName option:selected").val();
+    	var typeName=$("#tName option:selected").val();
+    	debugger;
             table.reload("tables",{
                 page: {
                     curr: 1 //重新从第 1 页开始
                 },
                 where: {
-                	userName: $(".userName").val(),
+                	postTopic:$(".postTopic").val(),
+                	postUsername:$(".postUsername").val(),
                 	startTime1:$(".startTime").val(),
-                	endTime1:$(".endTime").val()
+                	endTime1:$(".endTime").val(),
+                	postTypename:typeName,
+                	postBoardname:boardName
                 }
             })
     });
 
+    //跳转到添加版块页面
+   /* function addLink(edit){
+        var index = layer.open({
+            title : "添加帖子信息",
+            type : 2,
+			area: ['540px', '550px'],
+            content : path + "/post/add.do"
+        })
+    }*/
+  //版块信息修改
+   /* function editLink(edit){
+        var index = layer.open({
+            title : "修改版块信息",
+            type : 2,
+			area: ['540px', '550px'],
+            content : path + "/post/edit.do?postId="+edit.postId
+        })
+    }*/
+    //绑定添加友情链接事件
+    $(".addLink_btn").click(function(){
+        addLink();
+    })
 
     //批量删除
     $(".delAll_btn").click(function(){
@@ -159,12 +165,12 @@ layui.use(['form','layer','laydate','table','upload'],function(){
             linkId = [];
         if(data.length > 0) {
             for (var i in data) {
-                linkId.push(data[i].userId);
+                linkId.push(data[i].boardId);
             }
-            layer.confirm('确定删除选中的用户？', {icon: 3, title: '提示信息'}, function (index) {
+            layer.confirm('确定删除选中的版块？', {icon: 3, title: '提示信息'}, function (index) {
             	var ajaxReturnData;
                 $.ajax({
-		            url: path + '/buser/deleteBatch.do',
+		            url: path + '/board/deleteBatch.do',
 		            type: 'post',
 		            async: false,
 		            data: {ids:linkId.toString()},
@@ -181,7 +187,7 @@ layui.use(['form','layer','laydate','table','upload'],function(){
 		        });
             })
         }else{
-            layer.msg("请选择需要删除的用户信息");
+            layer.msg("请选择需要删除的版块信息");
         }
     })
 
@@ -192,13 +198,13 @@ layui.use(['form','layer','laydate','table','upload'],function(){
         if(layEvent === 'edit'){ //编辑
             editLink(data);
         }else if(layEvent === 'del'){ //删除
-            layer.confirm('确定删除此用户？',{icon:3, title:'提示信息'},function(index){
+            layer.confirm('确定删除此版块？',{icon:3, title:'提示信息'},function(index){
                 var ajaxReturnData;
 		        $.ajax({
-		            url: path + '/buser/delete.do',
+		            url: path + '/board/delete.do',
 		            type: 'post',
 		            async: false,
-		            data: {userId:data.userId},
+		            data: {boardId:data.boardId},
 		            success: function (data) {
 		                ajaxReturnData = data.status;
 		            }
@@ -217,10 +223,10 @@ layui.use(['form','layer','laydate','table','upload'],function(){
 			layer.confirm('真的禁用这个版块么', function(index) {
 				var ajaxReturnData;
 		        $.ajax({
-		            url: path + '/buser/setUse.do', //设置为可用
+		            url: path + '/board/setUse.do', //设置为可用
 		            type: 'post',
 		            async: false,
-		            data: {userId:data.userId},
+		            data: {boardId:data.boardId},
 		            success: function (data) {
 		                ajaxReturnData = data.status;
 		            }
@@ -240,10 +246,10 @@ layui.use(['form','layer','laydate','table','upload'],function(){
 			layer.confirm('真的将该版块置为可用么', function(index) {
 				var ajaxReturnData;
 		        $.ajax({
-		            url: path + '/buser/setUse.do',
+		            url: path + '/board/setUse.do',
 		            type: 'post',
 		            async: false,
-		            data: {userId:data.userId},
+		            data: {boardId:data.boardId},
 		            success: function (data) {
 		                ajaxReturnData = data.status;
 		            }
@@ -255,34 +261,81 @@ layui.use(['form','layer','laydate','table','upload'],function(){
 		        } else {
 		        	layer.msg('操作失败', {icon: 5});
 		        }
+				
 				layer.close(index);
+				
 			});
 		}
     });
     
-    form.on('submit(addLink)', function (data) {
-        var field = data.field;
-        var formElem = $(data.form);
-        var elem = $(data.elem);
-        var tableId ="tables";
-        debugger;
-        // 重置勾选状态记录
-        if (tableId) {
-            // 处理之后的结果，如果需要处理的话
-            //var whereTemp = {};
-            //layui.each(field, function (index, value) {
-                // 如果需要对数据进行处理
-            //});
-
-            table.reload(tableId, {
-                where: field,
-                page: {curr: 1}
-            });
+    form.on("submit(addLink)",function(data){
+        //弹出loading
+        var index = top.layer.msg('数据提交中，请稍候',{icon: 16,time:false,shade:0.8});
+        var ajaxReturnData;
+        //登陆验证
+        $.ajax({
+            url: path + '/board/save.do',
+            type: 'post',
+            async: false,
+            data: data.field,
+            success: function (data) {
+                ajaxReturnData = data.status;
+            }
+        });
+        //结果回应
+        if (ajaxReturnData == '1') {
+        	top.layer.close(index);
+        	top.layer.msg('保存成功', {icon: 1});
+        	 layer.closeAll("iframe");
+             //刷新父页面
+             $(".layui-tab-item.layui-show",parent.document).find("iframe")[0].contentWindow.location.reload();
         } else {
-            console.log('查询错误：查询按钮没有配置要查询的table id!');
+        	top.layer.msg('保存失败', {icon: 5});
         }
-
         return false;
+    })
+    
+    /*异步加载出版块信息*/
+    $("#bName").next('.layui-unselect')
+    .find('.layui-select-title').click(function(){
+    	//$('select[name=postBoardname]').empty();
+    	$.ajax({
+            url: path + '/board/selectAllForMap.do',
+            type: 'post',
+            async: false,
+            success: function (data) {
+            	$("#bName").append("<option value=''>不选择</option>");
+            	for(var i=0;i<data.length;i++){
+            		$("#bName").append("<option value='" + data[i].boardName + "'>"+data[i].boardName + "</option>");
+            	}
+            	form.render('select');
+    		},
+    		error : function(data) {
+    			layer.msg(data.msg, {icon: 5});
+    		}
+        })
+    });
+    
+    $("#tName").next('.layui-unselect')
+    .find('.layui-select-title').click(function(){
+    	//$("#tName").empty();
+    	$.ajax({
+            url: path + '/type/selectAllForMap.do',
+            type: 'post',
+            async: false,
+            success: function (data) {
+            	$("#tName").append("<option value=''>不选择</option>");
+            	for(var i=0;i<data.length;i++){
+            		$("#tName").append("<option value='" + data[i].typeName + "'>"+data[i].typeName + "</option>");
+            	}
+            	//form.render('select','postTypename');
+    		},
+    		error : function(data) {
+    			layer.msg(data.msg, {icon: 5});
+    		}
+        })
     });
     
 })
+
+

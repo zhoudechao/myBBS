@@ -1,11 +1,14 @@
 package com.service.type;
 
 import java.util.List;
+import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.github.pagehelper.PageInfo;
+import com.mapper.type.TypeMapper;
 import com.model.type.Type;
 import com.service.base.BaseService;
 
@@ -16,6 +19,9 @@ import tk.mybatis.mapper.util.StringUtil;
 @Service
 @Transactional
 public class TypeService extends BaseService<Type> {
+	@Autowired
+	private TypeMapper typeMapper;
+	
 	public PageInfo<Type> selectType(int page,int limit,Type type){
 		Example example=new Example(Type.class);
 		Criteria criteria=example.createCriteria();
@@ -31,5 +37,9 @@ public class TypeService extends BaseService<Type> {
 		example.selectProperties("typeName").orderBy("typeBh").asc();
 		Criteria criteria=example.createCriteria();
 		return this.selectByExample(example);
+	}
+	
+	public List<Map<String, Object>> selectAllForMap(){
+		 return typeMapper.selectAllForMap();
 	}
 }

@@ -8,6 +8,7 @@
     <id column="post_id" jdbcType="INTEGER" property="postId" />
     <result column="post_parentId" jdbcType="INTEGER" property="postParentid" />
     <result column="post_boardId" jdbcType="INTEGER" property="postBoardid" />
+    <result column="post_boardName" jdbcType="VARCHAR" property="postBoardname" />
     <result column="post_userId" jdbcType="INTEGER" property="postUserid" />
     <result column="post_userName" jdbcType="VARCHAR" property="postUsername" />
     <result column="post_topic" jdbcType="VARCHAR" property="postTopic" />
@@ -25,12 +26,12 @@
     <result column="post_typeName" jdbcType="VARCHAR" property="postTypename" />
     <result column="post_isEnd" jdbcType="VARCHAR" property="postIsend" />
     
-    <result column="type_id" property="type.typeId"/>
-    <result column="type_name" property="type.typeName"/>
-    <result column="board_id" property="boardId"/>
-    <result column="board_name" property="boardName"/>
-    <result column="user_id" property="userId"/>
-    <result column="user_name" property="userName"/>
+    <result column="type_id" property="type.typeId" />
+    <result column="type_name" property="type.typeName" />
+    <result column="board_id" property="boardId" />
+    <result column="board_name" property="boardName" />
+    <result column="user_id" property="userId" />
+    <result column="user_name" property="userName" />
   </resultMap>
 	
 	<select id="selectPostByCondition" parameterType="com.model.post.PostExtend" resultMap="BaseResultMap">

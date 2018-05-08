@@ -1,5 +1,7 @@
 package com.model.post;
 
+import java.util.Date;
+
 import com.model.board.Board;
 import com.model.buser.Buser;
 import com.model.type.Type;
@@ -9,6 +11,42 @@ public class PostExtend extends Post {
 	private Buser buser;
 	private Board board;
 	private Type type;
+	private int page;
+	private int limit;
+	private Date startTime;
+	private Date endTime;
+	public Date getStartTime() {
+		return startTime;
+	}
+
+	public void setStartTime(Date startTime) {
+		this.startTime = startTime;
+	}
+
+	public Date getEndTime() {
+		return endTime;
+	}
+
+	public void setEndTime(Date endTime) {
+		this.endTime = endTime;
+	}
+
+	public int getPage() {
+		return page;
+	}
+
+	public void setPage(int page) {
+		this.page = page;
+	}
+
+	public int getLimit() {
+		return limit;
+	}
+
+	public void setLimit(int limit) {
+		this.limit = limit;
+	}
+
 	public Type getType() {
 		return type;
 	}

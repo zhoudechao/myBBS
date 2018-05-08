@@ -14,4 +14,8 @@
     <result column="board_todayNum" property="boardTodaynum" jdbcType="INTEGER" />
     <result column="board_img" property="boardImg" jdbcType="LONGVARBINARY" />
   </resultMap>
+  
+  <select id="selectAllForMap" resultType="java.util.Map">
+  	SELECT b.`board_id` boardId,b.`board_name` boardName FROM bbs_board b 
+  </select>
 </mapper>

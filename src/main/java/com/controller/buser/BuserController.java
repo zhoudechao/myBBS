@@ -1,5 +1,7 @@
 package com.controller.buser;
 
+import java.sql.Timestamp;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -19,6 +21,7 @@ import com.github.pagehelper.PageInfo;
 import com.model.buser.Buser;
 import com.model.buser.BuserExtend;
 import com.service.buser.BuserService;
+import com.util.DateUtil;
 
 import net.sf.jsqlparser.expression.DateTimeLiteralExpression.DateTime;
 
@@ -29,13 +32,23 @@ public class BuserController extends BaseController<Buser>{
 	@Autowired
 	private BuserService buserService;
 	
-	@SuppressWarnings("all")
 	@ResponseBody
 	@RequestMapping(value="/buserData")
-	public Map<String, Object> boardData(Model model,@RequestParam("userName") String userName,
-			@RequestParam("startTime") DateTime startTime,@RequestParam("endTime") DateTime endTime){
+	public Map<String, Object> boardData(BuserExtend buserExtend,String startTime1,String endTime1){
 		Map<String, Object> map=new HashMap<String, Object>();
-		/*try {
+		try {
+			
+			if(startTime1!=null && !startTime1.equals("")){
+				
+				Date date = DateUtil.formatDateStirng(startTime1);
+				Timestamp timestamp=new Timestamp(date.getTime());
+				buserExtend.setStartTime(timestamp);
+			}
+			if(endTime1!=null && !endTime1.equals("")){
+				Date date = DateUtil.formatDateStirng(endTime1);
+				Timestamp timestamp=new Timestamp(date.getTime());
+				buserExtend.setEndTime(timestamp);
+			}
 			PageInfo<Buser> info=buserService.selectBuser(buserExtend);
 			map.put("code", 0);
 	        map.put("msg", "");
@@ -43,7 +56,7 @@ public class BuserController extends BaseController<Buser>{
 	        map.put("data", info.getList());
 		} catch (Exception e) {
 			e.printStackTrace();
-		}*/
+		}
 		return map;
 	}
 	

@@ -1,17 +1,16 @@
 package com.model.buser;
 
+import java.util.Date;
 import java.util.List;
 
 import com.model.post.Post;
-
-import net.sf.jsqlparser.expression.DateTimeLiteralExpression.DateTime;
 
 public class BuserExtend extends Buser {
 	
 	private int page;
 	private int limit;
-	private DateTime startTime;
-	private DateTime endTime;
+	private Date startTime;
+	private Date endTime;
 	private List<Post> list;
 	
 	public List<Post> getList() {
@@ -32,18 +31,19 @@ public class BuserExtend extends Buser {
 	public void setLimit(int limit) {
 		this.limit = limit;
 	}
-	public DateTime getStartTime() {
+	public Date getStartTime() {
 		return startTime;
 	}
-	public void setStartTime(DateTime startTime) {
+	public void setStartTime(Date startTime) {
 		this.startTime = startTime;
 	}
-	public DateTime getEndTime() {
+	public Date getEndTime() {
 		return endTime;
 	}
-	public void setEndTime(DateTime endTime) {
+	public void setEndTime(Date endTime) {
 		this.endTime = endTime;
 	}
+	
 	
 
 }

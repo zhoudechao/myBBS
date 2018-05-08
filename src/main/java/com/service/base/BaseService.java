@@ -13,7 +13,7 @@ import tk.mybatis.mapper.entity.Example;
 public abstract class BaseService<T> {
 	@Autowired
     protected Mapper<T> mapper;
-
+	
     public Mapper<T> getMapper() {
         return mapper;
     }
@@ -81,5 +81,7 @@ public abstract class BaseService<T> {
     public List<T> selectByExample(Example example){
     	return mapper.selectByExample(example);
     }
+    
+    
 }
 

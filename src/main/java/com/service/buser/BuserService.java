@@ -24,8 +24,8 @@ public class BuserService extends BaseService<Buser> {
 			criteria.andLike("userName", username);
 		}
 		if(buserExtend.getStartTime()!=null && buserExtend.getEndTime() !=null){
-			criteria2.andGreaterThanOrEqualTo("startTime", buserExtend.getStartTime())
-			.andLessThanOrEqualTo("endTime", buserExtend.getEndTime());
+			criteria2.andGreaterThanOrEqualTo("userJoindate", buserExtend.getStartTime())
+			.andLessThanOrEqualTo("userJoindate", buserExtend.getEndTime());
 			example.or(criteria2);
 		}
 		PageInfo<Buser> info =this.selectByExample(buserExtend.getPage(),buserExtend.getLimit(),example);

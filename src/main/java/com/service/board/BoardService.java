@@ -1,9 +1,14 @@
 package com.service.board;
 
+import java.util.List;
+import java.util.Map;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.github.pagehelper.PageInfo;
+import com.mapper.board.BoardMapper;
 import com.model.board.Board;
 import com.service.base.BaseService;
 
@@ -13,6 +18,8 @@ import tk.mybatis.mapper.util.StringUtil;
 @Service
 @Transactional
 public class BoardService extends BaseService<Board> {
+	@Autowired
+	private BoardMapper boardMapper;
 	/**
 	 * @Description: 根据JS中传过来的实体类是否有值来进行查询，
 	 * @param @param board
@@ -40,5 +47,9 @@ public class BoardService extends BaseService<Board> {
 			info=this.selectAll(page, limit);
 		}
 		return info;*/
+	}
+	
+	public List<Map<String, Object>> selectAllForMap(){
+		 return boardMapper.selectAllForMap();
 	}
 }
