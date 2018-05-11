@@ -56,18 +56,13 @@ public class TokenController {
 			log.debug("**** Generate Token **** : " + token);
 			Cookie cookie = new Cookie(StringUtils.DEFAULT_TOKEN_NAME, token);
 			log.debug("Write Token to Cookie and return to the Client : " + cookie.toString());
-			cookie.setPath("/");
+			//cookie.setPath("/");
 			response.addCookie(cookie);
-			//把用户名设置到cookie中
-			Cookie cookie2=new Cookie("userName", queryone.getUserName());
-			//解决cookie跨域问题
-			cookie2.setDomain("127.0.0.1");
-			cookie2.setPath("/");
-			response.addCookie(cookie2);
 			map.put("status", 0);
 			map.put("msg", "登录成功！");
 			int userId=queryone.getUserId();
 			map.put("userId", userId);
+			map.put("userName", queryone.getUserName());
 			return map;
 		}else{
 			map.put("status", 1);
@@ -81,7 +76,7 @@ public class TokenController {
 	 * @author rico       
 	 * @created 2017年7月4日 下午4:53:58     
 	 */
-	@RequestMapping(method = RequestMethod.DELETE)
+	@RequestMapping(value="/logout",method = RequestMethod.DELETE)
 	@IgnoreSecurity
 	public Map<String, Object> logout(HttpServletRequest request) {
 		Map<String, Object> map=new HashMap<String, Object>();

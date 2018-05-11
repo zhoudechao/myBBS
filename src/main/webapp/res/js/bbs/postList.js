@@ -4,6 +4,7 @@ layui.use(['form','layer','laydate','table','upload'],function(){
         $ = layui.jquery,
         laydate = layui.laydate,
         upload = layui.upload,
+       // formSelects=layui.formSelects,
         table = layui.table;
 
   //这个部分是时间范围选择的时候用到
@@ -296,9 +297,7 @@ layui.use(['form','layer','laydate','table','upload'],function(){
     })
     
     /*异步加载出版块信息*/
-    $("#bName").next('.layui-unselect')
-    .find('.layui-select-title').click(function(){
-    	//$('select[name=postBoardname]').empty();
+    $("#bName").next('.layui-unselect').find('.layui-select-title').click(function(){
     	$.ajax({
             url: path + '/board/selectAllForMap.do',
             type: 'post',
@@ -308,7 +307,8 @@ layui.use(['form','layer','laydate','table','upload'],function(){
             	for(var i=0;i<data.length;i++){
             		$("#bName").append("<option value='" + data[i].boardName + "'>"+data[i].boardName + "</option>");
             	}
-            	form.render('select');
+            	//form.render(null,'postBoardname');
+            	//form.render('select');
     		},
     		error : function(data) {
     			layer.msg(data.msg, {icon: 5});
@@ -328,7 +328,8 @@ layui.use(['form','layer','laydate','table','upload'],function(){
             	for(var i=0;i<data.length;i++){
             		$("#tName").append("<option value='" + data[i].typeName + "'>"+data[i].typeName + "</option>");
             	}
-            	//form.render('select','postTypename');
+            	//form.render(null,'tName');
+            	form.render('select');
     		},
     		error : function(data) {
     			layer.msg(data.msg, {icon: 5});

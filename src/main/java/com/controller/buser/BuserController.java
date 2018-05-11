@@ -3,6 +3,7 @@ package com.controller.buser;
 import java.sql.Timestamp;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -99,13 +100,22 @@ public class BuserController extends BaseController<Buser>{
 		}
 		return map;
 	}
+	/**
+	 * @Description: 前端中获取用户的信息
+	 * @param @param id
+	 * @param @return   
+	 * @return Buser  
+	 * @throws
+	 * @author zhoudechao
+	 * @date 2018年5月11日
+	 */
 	@ResponseBody
-	@RequestMapping(value="/getBuser",method=RequestMethod.POST,produces="application/json;charset=UTF-8"
+	@RequestMapping(value="/getBuser/{id}",method=RequestMethod.GET,produces="application/json;charset=UTF-8"
 			,consumes="application/json;charset=UTF-8")
-	public Buser getBuser(@RequestParam("userId") Integer id){
+	public List<Map<String, Object>> getBuser(@PathVariable(value="id") Integer id){
 		if(id !=null){
-			Buser buser = buserService.selectByKey(id);
-			return buser;
+			List<Map<String, Object>> list = buserService.selectUserAndPost(id);
+			return list;
 		}
 		return null;
 	}

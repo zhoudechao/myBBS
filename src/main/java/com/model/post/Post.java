@@ -100,6 +100,21 @@ public class Post {
     private String postIsend;
 
     /**
+     * 被阅读的次数
+     */
+    @Column(name = "post_readNum")
+    private Integer postReadnum;
+
+    /**
+     * 被回答的次数
+     */
+    @Column(name = "post_answerNum")
+    private Integer postAnswernum;
+
+    @Column(name = "post_address")
+    private String postAddress;
+
+    /**
      * @return post_id
      */
     public Integer getPostId() {
@@ -421,5 +436,55 @@ public class Post {
      */
     public void setPostIsend(String postIsend) {
         this.postIsend = postIsend;
+    }
+
+    /**
+     * 获取被阅读的次数
+     *
+     * @return post_readNum - 被阅读的次数
+     */
+    public Integer getPostReadnum() {
+        return postReadnum;
+    }
+
+    /**
+     * 设置被阅读的次数
+     *
+     * @param postReadnum 被阅读的次数
+     */
+    public void setPostReadnum(Integer postReadnum) {
+        this.postReadnum = postReadnum;
+    }
+
+    /**
+     * 获取被回答的次数
+     *
+     * @return post_answerNum - 被回答的次数
+     */
+    public Integer getPostAnswernum() {
+        return postAnswernum;
+    }
+
+    /**
+     * 设置被回答的次数
+     *
+     * @param postAnswernum 被回答的次数
+     */
+    public void setPostAnswernum(Integer postAnswernum) {
+        this.postAnswernum = postAnswernum;
+    }
+
+    /**
+     * @return post_address
+     */
+    public String getPostAddress() {
+        return postAddress;
+    }
+
+    /**
+     * @param postAddress
+     */
+    public void setPostAddress(String postAddress) {
+        this.postAddress = postAddress;
     }
 }

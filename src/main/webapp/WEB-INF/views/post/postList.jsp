@@ -36,12 +36,12 @@
 				</div><br>
 				类型：
 				<div class="layui-select-title" style="width:150px;">
-			      <select name="postTypename"  lay-filter="postTypename" id="tName">	
+			      <select name="postTypename"  lay-filter="postTypename" id="tName" >	
 			      </select>
 			    </div>
 				版块：
 				<div class="layui-select-title" style="width:150px;">
-			      <select name="postBoardname"  lay-filter="postBoardname" id="bName">
+			      <select name="postBoardname"  lay-filter="postBoardname" id="bName" >
 			      </select>
 			    </div>
 				<a class="layui-btn search_btn" data-type="reload"><i class="layui-icon">&#xe615;</i>搜索</a>

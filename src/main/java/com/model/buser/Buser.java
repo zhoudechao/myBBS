@@ -61,7 +61,9 @@ public class Buser {
 
     @Column(name = "user_hidden")
     private String userHidden;
-
+    
+    @Column(name = "user_address")
+    private String userAddress;
     /**
      * @return user_id
      */
@@ -313,4 +315,13 @@ public class Buser {
     public void setUserHidden(String userHidden) {
         this.userHidden = userHidden;
     }
+
+	public String getUserAddress() {
+		return userAddress;
+	}
+
+	public void setUserAddress(String userAddress) {
+		this.userAddress = userAddress;
+	}
+    
 }

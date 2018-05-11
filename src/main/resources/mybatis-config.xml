@@ -17,6 +17,7 @@
          <typeAlias alias="Common" type="com.model.common.Common"/>
          <typeAlias alias="Type" type="com.model.type.Type"/>
          <typeAlias alias="Post" type="com.model.post.Post"/>
+         <typeAlias alias="Buser" type="com.model.buser.Buser"/>
          
     </typeAliases>
     <mappers>

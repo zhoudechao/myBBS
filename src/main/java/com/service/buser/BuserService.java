@@ -1,9 +1,14 @@
 package com.service.buser;
 
+import java.util.List;
+import java.util.Map;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.github.pagehelper.PageInfo;
+import com.mapper.buser.BuserMapper;
 import com.model.buser.Buser;
 import com.model.buser.BuserExtend;
 import com.service.base.BaseService;
@@ -15,6 +20,9 @@ import tk.mybatis.mapper.util.StringUtil;
 @Service
 @Transactional
 public class BuserService extends BaseService<Buser> {
+	@Autowired
+	private BuserMapper buserMapper;
+	
 	public PageInfo<Buser> selectBuser(BuserExtend buserExtend){
 		Example example=new Example(Buser.class);
 		Criteria criteria=example.createCriteria();
@@ -38,5 +46,9 @@ public class BuserService extends BaseService<Buser> {
 			info=this.selectAll(buserExtend.getPage(),buserExtend.getLimit());
 		}
 		return info;*/
+	}
+	
+	public List<Map<String, Object>> selectUserAndPost(int id){
+		return buserMapper.selectUserAndPost(id);
 	}
 }
