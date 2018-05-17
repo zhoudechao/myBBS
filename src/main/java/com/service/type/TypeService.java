@@ -32,13 +32,7 @@ public class TypeService extends BaseService<Type> {
 		return this.selectByExample(page, limit, example);
 	}
 	
-	public List<Type> selectAllbyExample(){
-		Example example=new Example(Type.class);
-		example.selectProperties("typeName").orderBy("typeBh").asc();
-		Criteria criteria=example.createCriteria();
-		return this.selectByExample(example);
-	}
-	
+	//查询出帖子的类型
 	public List<Map<String, Object>> selectAllForMap(){
 		 return typeMapper.selectAllForMap();
 	}

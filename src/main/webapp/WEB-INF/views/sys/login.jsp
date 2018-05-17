@@ -9,7 +9,7 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 		<link rel="shortcut icon" href="${path }/res/images/Ologo.ico" type="image/x-icon" /> 
-		<title>OneManage后台管理系统2.0.0登录页面</title>
+		<title>后台管理系统登录页面</title>
 		<link rel="stylesheet" href="${path}/res/layui/css/layui.css" media="all" >
 	  	<link rel="stylesheet" href="${path}/res/font-awesome-4.7.0/css/font-awesome.css" />
 	  	<link rel="stylesheet" href="${path}/res/css/one-css/login.css" media="all" />
@@ -18,7 +18,7 @@
 	<body class="beg-login-bg">
 		<div class="beg-login-box">
 			<header>
-				<h1>OneManage管理系统后台登录</h1>
+				<h1>管理系统后台登录</h1>
 			</header>
 			<div class="beg-login-main">
 				<form action="" class="layui-form" method="post">

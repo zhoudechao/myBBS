@@ -27,6 +27,7 @@
     <result column="post_isEnd" jdbcType="VARCHAR" property="postIsend" />
     <result column="post_readNum" jdbcType="INTEGER" property="postReadnum" />
     <result column="post_answerNum" jdbcType="INTEGER" property="postAnswernum" />
+    <result column="post_isTop" jdbcType="VARCHAR" property="postIstop" />
   </resultMap>
   <resultMap id="BaseResultMap2" type="com.model.post.PostExtend">
     <!--
@@ -67,4 +68,22 @@
 		SELECT p.*,t.`type_id`,t.`type_name`,b.`board_id`,b.`board_name`,u.`user_id`,u.`user_name` FROM bbs_post p,bbs_type t,bbs_board b,bbs_user u 
 			WHERE p.post_typeId=t.type_id AND p.post_boardId=b.board_id AND p.post_userId=u.user_id AND p.post_id=1
 	</select>
+	<!-- 根据postId来查询出reply -->
+	<select id="selectPostAndReply" parameterType="int" resultType="java.util.Map">
+		SELECT p.`post_topic`,p.`post_isBest`,p.`post_isEnd`,p.`post_readNum`,p.`post_answerNum`,p.`post_typeName`,p.`post_userName`,p.`post_userId`,
+			   p.`post_createTime`,p.`post_content`,r.`reply_content`,r.`reply_Time`,r.`reply_userName`,r.`reply_userId`,r.`reply_isEnd`
+ 		FROM bbs_post p,bbs_reply r 
+ 		WHERE r.`reply_postId`=p.`post_id` AND p.`post_id`=#{id} ORDER BY reply_Time ASC
+	</select>
+	<!-- 查询出顶置的前4条帖子 -->
+	<select id="selectPostTop" resultType="com.model.post.Post">
+		SELECT * FROM bbs_post WHERE post_isTop=1 ORDER BY post_createTime DESC LIMIT 0,4
+	</select>
+	
+	<!-- 查询出前20条帖子 -->
+	<select id="selectPostLimit" resultType="com.model.post.Post">
+		SELECT * FROM bbs_post ORDER BY post_createTime DESC LIMIT 0,20
+	</select>
+	
+	
 </mapper>

@@ -129,8 +129,8 @@ public class TypeController extends BaseController<Type> {
 	@ResponseBody
 	@RequestMapping(value="/listType",method=RequestMethod.POST,produces="application/json;charset=UTF-8"
 			,consumes="application/json;charset=UTF-8")
-	public List<Type> listType(){
-		List<Type> selectAll = typeService.selectAllbyExample();
+	public List<Map<String, Object>> listType(){
+		List<Map<String, Object>> selectAll = typeService.selectAllForMap();
 		return selectAll;
 	}
 }

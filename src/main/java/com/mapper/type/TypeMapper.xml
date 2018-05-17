@@ -14,6 +14,6 @@
     <result column="type_postNum" jdbcType="INTEGER" property="typePostnum" />
   </resultMap>
 	<select id="selectAllForMap" resultType="java.util.Map">
-  		SELECT t.`type_id` typyId,t.`type_name` typeName FROM bbs_type t 
+  		SELECT t.`type_id` typeId,t.`type_name` typeName FROM bbs_type t ORDER BY type_bh ASC
   	</select>
 </mapper>

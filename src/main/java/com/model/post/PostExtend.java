@@ -15,6 +15,16 @@ public class PostExtend extends Post {
 	private int limit;
 	private Date startTime;
 	private Date endTime;
+	private int curr;       //前台传过来的当前页
+	
+	public int getCurr() {
+		return curr;
+	}
+
+	public void setCurr(int curr) {
+		this.curr = curr;
+	}
+
 	public Date getStartTime() {
 		return startTime;
 	}

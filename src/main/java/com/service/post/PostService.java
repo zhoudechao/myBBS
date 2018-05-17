@@ -1,9 +1,14 @@
 package com.service.post;
 
+import java.util.List;
+import java.util.Map;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.github.pagehelper.PageInfo;
+import com.mapper.post.PostMapper;
 import com.model.post.Post;
 import com.model.post.PostExtend;
 import com.service.base.BaseService;
@@ -14,6 +19,8 @@ import tk.mybatis.mapper.util.StringUtil;
 @Service
 @Transactional
 public class PostService extends BaseService<Post> {
+	@Autowired
+	private  PostMapper postMapper;
 	/**
 	 * @Description: 跳转到帖子页面的时候刷新出帖子
 	 * @param @param postExtend
@@ -45,5 +52,40 @@ public class PostService extends BaseService<Post> {
 		PageInfo<Post> info = this.selectByExample(postExtend.getPage(), postExtend.getLimit(), example);
 		return info;
 	}
+	
+	public List<Map<String, Object>> selectPostAndReply(int id){
+		return postMapper.selectPostAndReply(id);
+	}
+	
+	public List<Post> selectPostLimit(){
+		return postMapper.selectPostLimit();
+	}
 
+	public List<Post> selectPostTop() {
+		return postMapper.selectPostTop();
+	}
+	
+	/**
+	 * @Description: 分页查询出已结，未结，精华的帖子
+	 * @param @param postExtend
+	 * @param @return   
+	 * @return PageInfo<Post>  
+	 * @throws
+	 * @author zhoudechao
+	 * @date 2018年5月17日
+	 */
+	public PageInfo<Post> selectPostByPage(PostExtend postExtend){
+		Example example=new Example(Post.class);
+		Criteria criteria=example.createCriteria();
+		if(postExtend.getPostIsend()!=null && postExtend.getPostIsend().equals("1")){
+			criteria.andEqualTo("postIsend", "1");
+		}
+		if(postExtend.getPostIsend()!=null && postExtend.getPostIsend().equals("0")){
+			criteria.andEqualTo("postIsend", "0");
+		}
+		if(postExtend.getPostIsbest()!=null && postExtend.getPostIsbest().equals("1")){
+			criteria.andEqualTo("postIsbest", "1");
+		}
+		return this.selectByExample(postExtend.getCurr(), postExtend.getLimit(), example);
+	}
 }

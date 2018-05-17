@@ -30,6 +30,6 @@
   	SELECT u.`user_name` userName,u.`user_joinDate` userJoinDate,u.`user_address` userAddress,u.`user_description` userDescription, 
 	p.`post_topic` postTopic,p.`post_id` postId,p.`post_answerNum` postAnswerNum,p.`post_readNum` postReadNum,
 	p.`post_createTime` postCreateTime,p.`post_isBest` postIsBest
-	FROM bbs_user u,bbs_post p WHERE p.`post_userId`=u.`user_id` AND u.`user_id`=#{id}
+	FROM bbs_user u,bbs_post p WHERE p.`post_userId`=u.`user_id` AND u.`user_id`=#{id} order by postCreateTime asc
   </select>
 </mapper>

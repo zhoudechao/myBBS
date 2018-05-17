@@ -111,10 +111,19 @@ public class Post {
     @Column(name = "post_answerNum")
     private Integer postAnswernum;
 
-    @Column(name = "post_address")
-    private String postAddress;
+    @Column(name = "post_isTop")
+    private Integer postIstop;
 
-    /**
+    
+    public Integer getPostIstop() {
+		return postIstop;
+	}
+
+	public void setPostIstop(Integer postIstop) {
+		this.postIstop = postIstop;
+	}
+
+	/**
      * @return post_id
      */
     public Integer getPostId() {
@@ -474,17 +483,5 @@ public class Post {
         this.postAnswernum = postAnswernum;
     }
 
-    /**
-     * @return post_address
-     */
-    public String getPostAddress() {
-        return postAddress;
-    }
-
-    /**
-     * @param postAddress
-     */
-    public void setPostAddress(String postAddress) {
-        this.postAddress = postAddress;
-    }
+  
 }
