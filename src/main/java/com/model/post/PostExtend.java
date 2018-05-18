@@ -16,7 +16,16 @@ public class PostExtend extends Post {
 	private Date startTime;
 	private Date endTime;
 	private int curr;       //前台传过来的当前页
+	private Integer typeId;
 	
+	public Integer getTypeId() {
+		return typeId;
+	}
+
+	public void setTypeId(Integer typeId) {
+		this.typeId = typeId;
+	}
+
 	public int getCurr() {
 		return curr;
 	}

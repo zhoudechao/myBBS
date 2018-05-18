@@ -86,6 +86,9 @@ public class PostService extends BaseService<Post> {
 		if(postExtend.getPostIsbest()!=null && postExtend.getPostIsbest().equals("1")){
 			criteria.andEqualTo("postIsbest", "1");
 		}
+		if(postExtend.getTypeId()!=null && !postExtend.getTypeId().equals("")){
+			criteria.andEqualTo("postTypeid", postExtend.getTypeId());
+		}
 		return this.selectByExample(postExtend.getCurr(), postExtend.getLimit(), example);
 	}
 }

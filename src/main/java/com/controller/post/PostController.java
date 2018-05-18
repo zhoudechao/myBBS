@@ -9,8 +9,10 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.authorization.IgnoreSecurityType;
@@ -122,8 +124,7 @@ public class PostController extends BaseController<Post> {
 	 * @date 2018年5月17日
 	 */
 	@ResponseBody
-	@RequestMapping(value="/selectPostByPage",method=RequestMethod.GET,produces="application/json;charset=UTF-8"
-			,consumes="application/json;charset=UTF-8")
+	@RequestMapping(value="/selectPostByPage",method=RequestMethod.POST)
 	public Map<String, Object> selectPostByPage(PostExtend postExtend){
 		PageInfo<Post> info=postService.selectPostByPage(postExtend);
 		Map<String, Object> map=new HashMap<String, Object>();

@@ -22,4 +22,6 @@ public interface PostMapper extends Mapper<Post> {
 	List<Post> selectPostTop();
 	
 	List<Post> selectPostLimit();
+	
+	int selectPostNum();
 }

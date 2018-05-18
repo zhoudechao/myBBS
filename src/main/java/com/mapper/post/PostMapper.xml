@@ -85,5 +85,8 @@
 		SELECT * FROM bbs_post ORDER BY post_createTime DESC LIMIT 0,20
 	</select>
 	
+	<select id="selectPostNum" resultType="int">
+		SELECT COUNT(*) FROM bbs_post
+	</select>
 	
 </mapper>
