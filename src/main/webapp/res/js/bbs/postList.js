@@ -332,7 +332,7 @@ layui.use(['form','layer','laydate','table','upload'],function(){
             	form.render('select');
     		},
     		error : function(data) {
-    			layer.msg(data.msg, {icon: 5});
+    			layer.msg("查询异常", {icon: 5});
     		}
         })
     });

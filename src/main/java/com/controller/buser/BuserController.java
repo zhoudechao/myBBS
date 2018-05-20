@@ -9,6 +9,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.authorization.IgnoreSecurity;
 import com.authorization.IgnoreSecurityType;
 import com.controller.base.BaseController;
 import com.github.pagehelper.PageInfo;
@@ -28,13 +30,13 @@ import net.sf.jsqlparser.expression.DateTimeLiteralExpression.DateTime;
 
 @Controller
 @RequestMapping("/buser")
-@IgnoreSecurityType
 public class BuserController extends BaseController<Buser>{
 	@Autowired
 	private BuserService buserService;
 	
 	@ResponseBody
 	@RequestMapping(value="/buserData")
+	@IgnoreSecurity
 	public Map<String, Object> boardData(BuserExtend buserExtend,String startTime1,String endTime1){
 		Map<String, Object> map=new HashMap<String, Object>();
 		try {
@@ -63,6 +65,7 @@ public class BuserController extends BaseController<Buser>{
 	
 	@ResponseBody
 	@RequestMapping("/delete")
+	@IgnoreSecurity
 	public Map<String, Object> delete(Buser buser){
 		Map<String, Object> map=new HashMap<String, Object>();
 		try {
@@ -84,6 +87,7 @@ public class BuserController extends BaseController<Buser>{
 	 */
 	@ResponseBody
 	@RequestMapping("/setUse")
+	@IgnoreSecurity
 	public Map<String, Object> setUse(Buser buser){
 		Map<String, Object> map=new HashMap<String, Object>();
 		try {
@@ -118,5 +122,77 @@ public class BuserController extends BaseController<Buser>{
 			return list;
 		}
 		return null;
+	}
+	/**
+	 * @Description: 前台基本设置页面根据用户ID获取用户信息
+	 * @param @param id
+	 * @param @return   
+	 * @return Buser  
+	 * @throws
+	 * @author zhoudechao
+	 * @date 2018年5月19日
+	 */
+	@ResponseBody
+	@RequestMapping(value="/getBuserById/{id}",method=RequestMethod.GET,produces="application/json;charset=UTF-8"
+			,consumes="application/json;charset=UTF-8")
+	public Buser getBuserById(@PathVariable(value="id") Integer id){
+		if(id!=null){
+			return buserService.selectByKey(id);
+		}
+		return null;
+	}
+	
+	/**
+	 * @Description: 前台更新用户的信息
+	 * @param @param buser
+	 * @param @return   
+	 * @return Map<String,Object>  
+	 * @throws
+	 * @author zhoudechao
+	 * @date 2018年5月19日
+	 */
+	@ResponseBody
+	@RequestMapping(value="/putBuser",method=RequestMethod.PUT)
+	public Map<String, Object> putBuser(Buser buser,String oldPass,String newPass){
+		Map<String, Object> map = new HashMap<String, Object>();
+		if(oldPass !=null && newPass !=null){
+			if(oldPass.equals(buser.getUserPassword())){
+				if(!oldPass.equals(newPass)){
+					buser.setUserPassword(newPass);
+					int i = buserService.updateByKey(buser);
+					map.put("msg", "密码修改成功，请重新登录！");
+					map.put("status",Integer.valueOf(i));
+				}else{
+					map.put("msg", "新旧密码不能一样！");
+				}
+			}else{
+				map.put("msg", "密码输入错误！");
+			}
+		}else{
+			if(buser.getUserId()!=null){
+				int i=buserService.updateByKey(buser);
+				map.put("status",Integer.valueOf(i));
+				return map;
+			}
+		}
+		return map;
+	}
+	
+	/**
+	 * @Description: 在修改用户信息之前，先根据用户ID来从数据库中查询出用户，能够做到值修改部分字段
+	 * @param @param userId
+	 * @param @param map   
+	 * @return void  
+	 * @throws
+	 * @author zhoudechao
+	 * @date 2018年5月19日
+	 */
+	@ModelAttribute
+	public void getBuser(@RequestParam(value="userId",required=false) Integer userId,
+			Map<String, Object> map){
+		if(userId!=null){
+			Buser buser=buserService.selectByKey(userId);
+			map.put("buser", buser);
+		}
 	}
 }

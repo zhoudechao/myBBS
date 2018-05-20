@@ -51,4 +51,8 @@ public class BuserService extends BaseService<Buser> {
 	public List<Map<String, Object>> selectUserAndPost(int id){
 		return buserMapper.selectUserAndPost(id);
 	}
+	
+	public String selectUserNameById(int id){
+		return buserMapper.selectUserNameById(id);
+	}
 }

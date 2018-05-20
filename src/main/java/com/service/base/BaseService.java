@@ -82,6 +82,9 @@ public abstract class BaseService<T> {
     	return mapper.selectByExample(example);
     }
     
+    public int updateByKey(T entity){
+    	return mapper.updateByPrimaryKey(entity);
+    }
     
 }
 

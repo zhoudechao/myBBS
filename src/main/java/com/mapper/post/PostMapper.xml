@@ -85,8 +85,8 @@
 		SELECT * FROM bbs_post ORDER BY post_createTime DESC LIMIT 0,20
 	</select>
 	
-	<select id="selectPostNum" resultType="int">
-		SELECT COUNT(*) FROM bbs_post
-	</select>
-	
+	<select id="selectPostByUserId" parameterType="int" resultType="java.util.Map">
+		SELECT p.`post_id`,p.`post_topic`,p.`post_createTime`,p.`post_isEnd`,p.`post_answerNum`,p.`post_readNum`
+ 			FROM bbs_post p WHERE post_userId=#{id} ORDER BY p.`post_createTime` DESC
+	</select>	
 </mapper>

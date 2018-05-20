@@ -18,6 +18,7 @@
          <typeAlias alias="Type" type="com.model.type.Type"/>
          <typeAlias alias="Post" type="com.model.post.Post"/>
          <typeAlias alias="Buser" type="com.model.buser.Buser"/>
+         <typeAlias alias="Mark" type="com.model.mark.Mark"/>
          
     </typeAliases>
     <mappers>
@@ -33,6 +34,8 @@
          <mapper resource="com/mapper/common/CommonMapper.xml" />
          <mapper resource="com/mapper/type/TypeMapper.xml" />
          <mapper resource="com/mapper/post/PostMapper.xml" />
+         <mapper resource="com/mapper/mark/MarkMapper.xml" />
     </mappers>
+    
     
 </configuration>

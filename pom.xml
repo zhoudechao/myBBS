@@ -28,22 +28,22 @@
 		<targetJavaProject>${basedir}/src/main/java</targetJavaProject>
 
 		<!-- targetMapperPackage：声明MBG生成XxxMapper接口后存放的package位置 -->
-		<targetMapperPackage>com.mapper.post</targetMapperPackage>
+		<targetMapperPackage>com.mapper.reply</targetMapperPackage>
 
 		<!-- targetModelPackage：声明MBG生成实体类后存放的package位置 -->
-		<targetModelPackage>com.model.post</targetModelPackage>
+		<targetModelPackage>com.model.reply</targetModelPackage>
 
 		<!-- targetResourcesProject：声明存放资源文件和XML配置文件的目录位置 -->
 		<targetResourcesProject>${basedir}/src/main/java</targetResourcesProject>
 
 		<!-- targetXMLPackage：声明存放具体XxxMapper.xml文件的目录位置 -->
-		<targetXMLPackage>com.mapper.post</targetXMLPackage>
+		<targetXMLPackage>com.mapper.reply</targetXMLPackage>
 		<!-- 要生成数据表的名字 -->
-		<targetTableName>bbs_post</targetTableName>
+		<targetTableName>bbs_reply</targetTableName>
 		<!-- 要生成实体类的名字 -->
-		<targetPojoNamename>Post</targetPojoNamename>
+		<targetPojoNamename>Reply</targetPojoNamename>
 		<!-- 要生成的主键列 -->
-		<targetGeneratedKey>post_id</targetGeneratedKey>
+		<targetGeneratedKey>reply_id</targetGeneratedKey>
 		
 		<!-- 通用Mapper的版本号 -->
 		<mapper.version>4.0.0-beta3</mapper.version>

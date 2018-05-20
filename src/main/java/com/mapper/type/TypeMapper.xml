@@ -16,4 +16,8 @@
 	<select id="selectAllForMap" resultType="java.util.Map">
   		SELECT t.`type_id` typeId,t.`type_name` typeName FROM bbs_type t ORDER BY type_bh ASC
   	</select>
+  	
+  	<select id="selectTypeNameById" parameterType="int" resultType="String">
+  		SELECT t.`type_name` FROM bbs_type t WHERE t.`type_id`=#{id}
+  	</select>
 </mapper>

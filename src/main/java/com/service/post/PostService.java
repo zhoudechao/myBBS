@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.mapper.post.PostMapper;
 import com.model.post.Post;
@@ -90,5 +91,11 @@ public class PostService extends BaseService<Post> {
 			criteria.andEqualTo("postTypeid", postExtend.getTypeId());
 		}
 		return this.selectByExample(postExtend.getCurr(), postExtend.getLimit(), example);
+	}
+	
+	public PageInfo selectPostByUserId(int id,int curr,int limit){
+		PageHelper.startPage(curr, limit);
+		List<Map<String, Object>> list=postMapper.selectPostByUserId(id);
+		return new PageInfo<>(list);
 	}
 }

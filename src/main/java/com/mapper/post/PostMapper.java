@@ -23,5 +23,6 @@ public interface PostMapper extends Mapper<Post> {
 	
 	List<Post> selectPostLimit();
 	
-	int selectPostNum();
+	List<Map<String, Object>> selectPostByUserId(int id);
+	
 }

@@ -32,4 +32,8 @@
 	p.`post_createTime` postCreateTime,p.`post_isBest` postIsBest
 	FROM bbs_user u,bbs_post p WHERE p.`post_userId`=u.`user_id` AND u.`user_id`=#{id} order by postCreateTime asc
   </select>
+  
+  <select id="selectUserNameById" parameterType="int" resultType="java.lang.String">
+  	SELECT u.`user_name` FROM bbs_user u WHERE u.`user_id`=#{id}
+  </select>
 </mapper>

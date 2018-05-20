@@ -7,5 +7,7 @@ import com.model.buser.Buser;
 import tk.mybatis.mapper.common.Mapper;
 
 public interface BuserMapper extends Mapper<Buser> {
-	List<Map<String, Object>> selectUserAndPost(int id);
+	public List<Map<String, Object>> selectUserAndPost(int id);
+	
+	public String selectUserNameById(int id);
 }

@@ -113,16 +113,7 @@ public class TypeController extends BaseController<Type> {
 	public List<Map<String, Object>> selectAllForMap(){
 		List<Map<String, Object>> list=new ArrayList<Map<String,Object>>();
 		list=typeService.selectAllForMap();
-		Map<String, Object> map=new HashMap<String, Object>();
-		if(map!=null){
-			map.put("status", "0");
-			list.add(map);
-			return list;
-		}else{
-			map.put("msg", "查询异常");
-			map.put("status", "1");
-			return list;
-		}
+		return list;
 	}
 	
 	//前台主页面中查询出帖子的类型

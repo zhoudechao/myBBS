@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mapper.mark.MarkMapper" >
+  <resultMap id="BaseResultMap" type="com.model.mark.Mark" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="mark_id" property="markId" jdbcType="INTEGER" />
+    <result column="mark_userId" property="markUserid" jdbcType="INTEGER" />
+    <result column="mark_userName" property="markUsername" jdbcType="VARCHAR" />
+    <result column="mark_createTime" property="markCreatetime" jdbcType="TIMESTAMP" />
+    <result column="zt" property="zt" jdbcType="VARCHAR" />
+    <result column="mark_postId" property="markPostid" jdbcType="INTEGER" />
+    <result column="mark_postTopic" property="markPosttopic" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <select id="selectMarkByUserId" parameterType="int" resultType="com.model.mark.Mark">
+  	SELECT * FROM bbs_mark m WHERE m.`mark_userId`=#{id} ORDER BY m.`mark_createTime` DESC 
+  </select>
+</mapper>

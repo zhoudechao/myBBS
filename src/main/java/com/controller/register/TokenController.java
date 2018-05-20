@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.authorization.IgnoreSecurity;
@@ -56,13 +57,19 @@ public class TokenController {
 			log.debug("**** Generate Token **** : " + token);
 			Cookie cookie = new Cookie(StringUtils.DEFAULT_TOKEN_NAME, token);
 			log.debug("Write Token to Cookie and return to the Client : " + cookie.toString());
-			//cookie.setPath("/");
+			cookie.setPath("/");
 			response.addCookie(cookie);
+			Cookie cookie2=new Cookie("userId",String.valueOf(queryone.getUserId()));
+			Cookie cookie3=new Cookie("userName",queryone.getUserName());
+			cookie2.setPath("/");
+			cookie3.setPath("/");
+			response.addCookie(cookie2);
+			response.addCookie(cookie3);
 			map.put("status", 0);
 			map.put("msg", "登录成功！");
-			int userId=queryone.getUserId();
-			map.put("userId", userId);
-			map.put("userName", queryone.getUserName());
+			//int userId=queryone.getUserId();
+			//map.put("userId", userId);
+			//map.put("userName", queryone.getUserName());
 			return map;
 		}else{
 			map.put("status", 1);
@@ -81,10 +88,15 @@ public class TokenController {
 	public Map<String, Object> logout(HttpServletRequest request) {
 		Map<String, Object> map=new HashMap<String, Object>();
 		String token = request.getHeader(StringUtils.DEFAULT_TOKEN_NAME);
-		tokenManager.deleteToken(token);
-		log.debug("Logout Success...");
-		map.put("status", 1);
-		map.put("msg", "注销成功！");
+		if(token!=null){
+			tokenManager.deleteToken(token);
+			log.debug("Logout Success...");
+			map.put("status", 1);
+			map.put("msg", "注销成功！");
+		}else{
+			map.put("status", 0);
+			map.put("msg", "注销失败！");
+		}
 		return map;
 	}
 }

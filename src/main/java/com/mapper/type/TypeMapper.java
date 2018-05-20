@@ -8,4 +8,6 @@ import tk.mybatis.mapper.common.Mapper;
 
 public interface TypeMapper extends Mapper<Type> {
 	public List<Map<String, Object>> selectAllForMap();
+	
+	public String selectTypeNameById(int id);
 }

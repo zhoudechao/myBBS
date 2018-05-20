@@ -36,4 +36,8 @@ public class TypeService extends BaseService<Type> {
 	public List<Map<String, Object>> selectAllForMap(){
 		 return typeMapper.selectAllForMap();
 	}
+	
+	public String selectTypeNameById(int id){
+		return typeMapper.selectTypeNameById(id);
+	}
 }
