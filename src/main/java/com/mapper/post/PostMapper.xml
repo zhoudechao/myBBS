@@ -6,19 +6,15 @@
       WARNING - @mbg.generated
     -->
     <id column="post_id" jdbcType="INTEGER" property="postId" />
-    <result column="post_parentId" jdbcType="INTEGER" property="postParentid" />
     <result column="post_boardId" jdbcType="INTEGER" property="postBoardid" />
     <result column="post_boardName" jdbcType="VARCHAR" property="postBoardname" />
     <result column="post_userId" jdbcType="INTEGER" property="postUserid" />
     <result column="post_userName" jdbcType="VARCHAR" property="postUsername" />
     <result column="post_topic" jdbcType="VARCHAR" property="postTopic" />
-    <result column="post_content" jdbcType="VARCHAR" property="postContent" />
     <result column="post_createTime" jdbcType="TIMESTAMP" property="postCreatetime" />
     <result column="post_length" jdbcType="INTEGER" property="postLength" />
     <result column="post_order" jdbcType="INTEGER" property="postOrder" />
-    <result column="post_parentName" jdbcType="VARCHAR" property="postParentname" />
     <result column="post_isBest" jdbcType="VARCHAR" property="postIsbest" />
-    <result column="post_ip" jdbcType="VARCHAR" property="postIp" />
     <result column="post_isupload" jdbcType="VARCHAR" property="postIsupload" />
     <result column="zt" jdbcType="VARCHAR" property="zt" />
     <result column="post_description" jdbcType="VARCHAR" property="postDescription" />
@@ -28,40 +24,31 @@
     <result column="post_readNum" jdbcType="INTEGER" property="postReadnum" />
     <result column="post_answerNum" jdbcType="INTEGER" property="postAnswernum" />
     <result column="post_isTop" jdbcType="VARCHAR" property="postIstop" />
+    <result column="post_content" jdbcType="LONGVARCHAR" property="postContent" />
   </resultMap>
+  
   <resultMap id="BaseResultMap2" type="com.model.post.PostExtend">
-    <!--
-      WARNING - @mbg.generated
-    -->
     <id column="post_id" jdbcType="INTEGER" property="postId" />
-    <result column="post_parentId" jdbcType="INTEGER" property="postParentid" />
-    <result column="post_boardId" jdbcType="INTEGER" property="postBoardid" />
-    <result column="post_boardName" jdbcType="VARCHAR" property="postBoardname" />
     <result column="post_userId" jdbcType="INTEGER" property="postUserid" />
     <result column="post_userName" jdbcType="VARCHAR" property="postUsername" />
     <result column="post_topic" jdbcType="VARCHAR" property="postTopic" />
-    <result column="post_content" jdbcType="VARCHAR" property="postContent" />
+    <result column="post_content" jdbcType="LONGVARCHAR" property="postContent" />
     <result column="post_createTime" jdbcType="TIMESTAMP" property="postCreatetime" />
-    <result column="post_length" jdbcType="INTEGER" property="postLength" />
-    <result column="post_order" jdbcType="INTEGER" property="postOrder" />
-    <result column="post_parentName" jdbcType="VARCHAR" property="postParentname" />
     <result column="post_isBest" jdbcType="VARCHAR" property="postIsbest" />
-    <result column="post_ip" jdbcType="VARCHAR" property="postIp" />
-    <result column="post_isupload" jdbcType="VARCHAR" property="postIsupload" />
-    <result column="zt" jdbcType="VARCHAR" property="zt" />
-    <result column="post_description" jdbcType="VARCHAR" property="postDescription" />
-    <result column="post_typeId" jdbcType="INTEGER" property="postTypeid" />
     <result column="post_typeName" jdbcType="VARCHAR" property="postTypename" />
     <result column="post_isEnd" jdbcType="VARCHAR" property="postIsend" />
     <result column="post_readNum" jdbcType="INTEGER" property="postReadnum" />
     <result column="post_answerNum" jdbcType="INTEGER" property="postAnswernum" />
+    <result column="post_isTop" jdbcType="VARCHAR" property="postIstop" />
     
-    <result column="type_id" property="type.typeId" />
-    <result column="type_name" property="type.typeName" />
-    <result column="board_id" property="boardId" />
-    <result column="board_name" property="boardName" />
-    <result column="user_id" property="userId" />
-    <result column="user_name" property="userName" />
+    <collection ofType="com.model.reply.Reply" property="listReply">
+    	<id column="reply_id" property="replyId" />
+    	<result column="reply_content" property="replyContent" />
+    	<result column="reply_Time" property="replyTime" />
+    	<result column="reply_userName" property="replyUsername" />
+    	<result column="reply_userId" property="replyUserid" />
+    	<result column="reply_isEnd" property="replyIsend" />
+    </collection>
   </resultMap>
 	
 	<select id="selectPostByCondition" parameterType="com.model.post.PostExtend" resultMap="BaseResultMap2">
@@ -69,11 +56,12 @@
 			WHERE p.post_typeId=t.type_id AND p.post_boardId=b.board_id AND p.post_userId=u.user_id AND p.post_id=1
 	</select>
 	<!-- 根据postId来查询出reply -->
-	<select id="selectPostAndReply" parameterType="int" resultType="java.util.Map">
-		SELECT p.`post_topic`,p.`post_isBest`,p.`post_isEnd`,p.`post_readNum`,p.`post_answerNum`,p.`post_typeName`,p.`post_userName`,p.`post_userId`,
-			   p.`post_createTime`,p.`post_content`,r.`reply_content`,r.`reply_Time`,r.`reply_userName`,r.`reply_userId`,r.`reply_isEnd`
- 		FROM bbs_post p,bbs_reply r 
- 		WHERE r.`reply_postId`=p.`post_id` AND p.`post_id`=#{id} ORDER BY reply_Time ASC
+	<select id="selectPostAndReply" parameterType="int" resultMap="BaseResultMap2"> 
+		SELECT p.`post_id`,p.`post_topic`,p.`post_isBest`,p.`post_isEnd`,p.`post_readNum`,p.`post_answerNum`,p.`post_typeName`,p.`post_userName`,p.`post_userId`,
+			   p.`post_createTime`,p.`post_content`,r.`reply_id`,r.`reply_content`,r.`reply_Time`,r.`reply_userName`,r.`reply_userId`,r.`reply_isEnd`
+ 		FROM bbs_post p
+ 		LEFT JOIN bbs_reply r 
+ 		ON r.`reply_postId`=p.`post_id` WHERE p.`post_id`=#{id} ORDER BY reply_Time DESC
 	</select>
 	<!-- 查询出顶置的前4条帖子 -->
 	<select id="selectPostTop" resultType="com.model.post.Post">
@@ -84,9 +72,10 @@
 	<select id="selectPostLimit" resultType="com.model.post.Post">
 		SELECT * FROM bbs_post ORDER BY post_createTime DESC LIMIT 0,20
 	</select>
-	
+	<!-- 根据用户ID查询出用户所发表的帖子 -->
 	<select id="selectPostByUserId" parameterType="int" resultType="java.util.Map">
 		SELECT p.`post_id`,p.`post_topic`,p.`post_createTime`,p.`post_isEnd`,p.`post_answerNum`,p.`post_readNum`
  			FROM bbs_post p WHERE post_userId=#{id} ORDER BY p.`post_createTime` DESC
 	</select>	
+	
 </mapper>

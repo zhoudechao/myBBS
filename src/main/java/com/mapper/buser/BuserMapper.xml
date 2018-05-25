@@ -12,7 +12,6 @@
     <result column="user_sex" jdbcType="VARCHAR" property="userSex" />
     <result column="user_postNum" jdbcType="VARCHAR" property="userPostnum" />
     <result column="zt" jdbcType="VARCHAR" property="zt" />
-    <result column="user_face" jdbcType="VARCHAR" property="userFace" />
     <result column="user_joinDate" jdbcType="TIMESTAMP" property="userJoindate" />
     <result column="user_lastLogin" jdbcType="TIMESTAMP" property="userLastlogin" />
     <result column="user_logins" jdbcType="INTEGER" property="userLogins" />
@@ -20,20 +19,38 @@
     <result column="user_question" jdbcType="VARCHAR" property="userQuestion" />
     <result column="user_answer" jdbcType="VARCHAR" property="userAnswer" />
     <result column="user_photo" jdbcType="VARCHAR" property="userPhoto" />
-    <result column="user_setting" jdbcType="VARCHAR" property="userSetting" />
     <result column="user_description" jdbcType="VARCHAR" property="userDescription" />
-    <result column="user_hidden" jdbcType="VARCHAR" property="userHidden" />
     <result column="user_address" jdbcType="VARCHAR" property="userAddress" />
   </resultMap>
   
-  <select id="selectUserAndPost" parameterType="int" resultType="java.util.Map">
-  	SELECT u.`user_name` userName,u.`user_joinDate` userJoinDate,u.`user_address` userAddress,u.`user_description` userDescription, 
-	p.`post_topic` postTopic,p.`post_id` postId,p.`post_answerNum` postAnswerNum,p.`post_readNum` postReadNum,
-	p.`post_createTime` postCreateTime,p.`post_isBest` postIsBest
-	FROM bbs_user u,bbs_post p WHERE p.`post_userId`=u.`user_id` AND u.`user_id`=#{id} order by postCreateTime asc
+  <resultMap type="com.model.buser.BuserExtend" id="selectUserAndPostMap">
+ 	<id column="user_id" jdbcType="INTEGER" property="userId" />
+  	<result column="user_name" jdbcType="VARCHAR" property="userName" />
+  	<result column="user_joinDate" jdbcType="TIMESTAMP" property="userJoindate" />
+  	<result column="user_address" jdbcType="VARCHAR" property="userAddress" />
+  	<result column="user_description" jdbcType="VARCHAR" property="userDescription" />
+  	<collection property="list" ofType="com.model.post.Post">
+  		<id column="post_id" property="postId"/>
+  		<result column="post_topic" property="postTopic"/>
+  		<result column="post_answerNum" property="postAnswernum"/>
+  		<result column="post_readNum" property="postReadnum"/>
+  		<result column="post_createTime" property="postCreatetime"/>
+  		<result column="post_isBest" property="postIsbest"/>
+  	</collection>
+  </resultMap>
+  
+  <!-- 根据用户id查询出用户发表的帖子 -->
+  <select id="selectUserAndPost" parameterType="int" resultMap="selectUserAndPostMap">
+  	SELECT u.`user_id`,u.`user_name`,u.`user_joinDate`,u.`user_address`,u.`user_description`, 
+		p.`post_topic`,p.`post_id`,p.`post_answerNum`,p.`post_readNum`,p.`post_createTime`,p.`post_isBest`
+	FROM bbs_user u 
+	LEFT JOIN bbs_post p ON u.`user_id`=p.`post_userId` 
+	WHERE u.`user_id`=#{id} ORDER BY p.`post_createTime` DESC
   </select>
   
   <select id="selectUserNameById" parameterType="int" resultType="java.lang.String">
   	SELECT u.`user_name` FROM bbs_user u WHERE u.`user_id`=#{id}
   </select>
+  
+ 
 </mapper>

@@ -11,12 +11,6 @@ public class Post {
     private Integer postId;
 
     /**
-     * 上级帖子编号
-     */
-    @Column(name = "post_parentId")
-    private Integer postParentid;
-
-    /**
      * 所属板块编号
      */
     @Column(name = "post_boardId")
@@ -40,9 +34,6 @@ public class Post {
     @Column(name = "post_topic")
     private String postTopic;
 
-    @Column(name = "post_content")
-    private String postContent;
-
     @Column(name = "post_createTime")
     private Date postCreatetime;
 
@@ -53,22 +44,10 @@ public class Post {
     private Integer postOrder;
 
     /**
-     * 上级帖子名称
-     */
-    @Column(name = "post_parentName")
-    private String postParentname;
-
-    /**
      * 是否是精华
      */
     @Column(name = "post_isBest")
     private String postIsbest;
-
-    /**
-     * 发帖用户IP
-     */
-    @Column(name = "post_ip")
-    private String postIp;
 
     /**
      * 是否有附件
@@ -111,19 +90,16 @@ public class Post {
     @Column(name = "post_answerNum")
     private Integer postAnswernum;
 
+    /**
+     * 是否为顶置
+     */
     @Column(name = "post_isTop")
-    private Integer postIstop;
+    private String postIstop;
 
-    
-    public Integer getPostIstop() {
-		return postIstop;
-	}
+    @Column(name = "post_content")
+    private String postContent;
 
-	public void setPostIstop(Integer postIstop) {
-		this.postIstop = postIstop;
-	}
-
-	/**
+    /**
      * @return post_id
      */
     public Integer getPostId() {
@@ -135,24 +111,6 @@ public class Post {
      */
     public void setPostId(Integer postId) {
         this.postId = postId;
-    }
-
-    /**
-     * 获取上级帖子编号
-     *
-     * @return post_parentId - 上级帖子编号
-     */
-    public Integer getPostParentid() {
-        return postParentid;
-    }
-
-    /**
-     * 设置上级帖子编号
-     *
-     * @param postParentid 上级帖子编号
-     */
-    public void setPostParentid(Integer postParentid) {
-        this.postParentid = postParentid;
     }
 
     /**
@@ -238,20 +196,6 @@ public class Post {
     }
 
     /**
-     * @return post_content
-     */
-    public String getPostContent() {
-        return postContent;
-    }
-
-    /**
-     * @param postContent
-     */
-    public void setPostContent(String postContent) {
-        this.postContent = postContent;
-    }
-
-    /**
      * @return post_createTime
      */
     public Date getPostCreatetime() {
@@ -294,24 +238,6 @@ public class Post {
     }
 
     /**
-     * 获取上级帖子名称
-     *
-     * @return post_parentName - 上级帖子名称
-     */
-    public String getPostParentname() {
-        return postParentname;
-    }
-
-    /**
-     * 设置上级帖子名称
-     *
-     * @param postParentname 上级帖子名称
-     */
-    public void setPostParentname(String postParentname) {
-        this.postParentname = postParentname;
-    }
-
-    /**
      * 获取是否是精华
      *
      * @return post_isBest - 是否是精华
@@ -327,24 +253,6 @@ public class Post {
      */
     public void setPostIsbest(String postIsbest) {
         this.postIsbest = postIsbest;
-    }
-
-    /**
-     * 获取发帖用户IP
-     *
-     * @return post_ip - 发帖用户IP
-     */
-    public String getPostIp() {
-        return postIp;
-    }
-
-    /**
-     * 设置发帖用户IP
-     *
-     * @param postIp 发帖用户IP
-     */
-    public void setPostIp(String postIp) {
-        this.postIp = postIp;
     }
 
     /**
@@ -483,5 +391,35 @@ public class Post {
         this.postAnswernum = postAnswernum;
     }
 
-  
+    /**
+     * 获取是否为顶置
+     *
+     * @return post_isTop - 是否为顶置
+     */
+    public String getPostIstop() {
+        return postIstop;
+    }
+
+    /**
+     * 设置是否为顶置
+     *
+     * @param postIstop 是否为顶置
+     */
+    public void setPostIstop(String postIstop) {
+        this.postIstop = postIstop;
+    }
+
+    /**
+     * @return post_content
+     */
+    public String getPostContent() {
+        return postContent;
+    }
+
+    /**
+     * @param postContent
+     */
+    public void setPostContent(String postContent) {
+        this.postContent = postContent;
+    }
 }

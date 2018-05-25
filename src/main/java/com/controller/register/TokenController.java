@@ -1,5 +1,7 @@
 package com.controller.register;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -9,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -21,7 +24,7 @@ import com.model.buser.Buser;
 import com.service.buser.BuserService;
 import com.util.StringUtils;
     
-@RestController
+@Controller
 @RequestMapping("/tokens")
 public class TokenController {
 	@Autowired
@@ -42,11 +45,13 @@ public class TokenController {
 	/**     
 	 * @description 登录处理
 	 * @author rico       
+	 * @throws UnsupportedEncodingException 
 	 * @created 2017年7月4日 下午4:53:58     
 	 */
+	@ResponseBody
 	@RequestMapping(value="/login",method = RequestMethod.POST)
 	@IgnoreSecurity
-	public Map<String, Object> login(@RequestBody Buser buser, HttpServletResponse response) {
+	public Map<String, Object> login(Buser buser, HttpServletResponse response) throws UnsupportedEncodingException {
 		Map<String, Object> map=new HashMap<String, Object>();
 		Buser queryone=null;
 		if(buser.getUserName()!=null){
@@ -60,7 +65,7 @@ public class TokenController {
 			cookie.setPath("/");
 			response.addCookie(cookie);
 			Cookie cookie2=new Cookie("userId",String.valueOf(queryone.getUserId()));
-			Cookie cookie3=new Cookie("userName",queryone.getUserName());
+			Cookie cookie3=new Cookie("userName",URLEncoder.encode(queryone.getUserName(), "utf-8"));
 			cookie2.setPath("/");
 			cookie3.setPath("/");
 			response.addCookie(cookie2);
@@ -83,6 +88,7 @@ public class TokenController {
 	 * @author rico       
 	 * @created 2017年7月4日 下午4:53:58     
 	 */
+	@ResponseBody
 	@RequestMapping(value="/logout",method = RequestMethod.DELETE)
 	@IgnoreSecurity
 	public Map<String, Object> logout(HttpServletRequest request) {

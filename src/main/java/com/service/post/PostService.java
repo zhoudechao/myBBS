@@ -54,10 +54,10 @@ public class PostService extends BaseService<Post> {
 		return info;
 	}
 	
-	public List<Map<String, Object>> selectPostAndReply(int id){
+	
+	public PostExtend selectPostAndReply(int id){
 		return postMapper.selectPostAndReply(id);
 	}
-	
 	public List<Post> selectPostLimit(){
 		return postMapper.selectPostLimit();
 	}
@@ -87,8 +87,8 @@ public class PostService extends BaseService<Post> {
 		if(postExtend.getPostIsbest()!=null && postExtend.getPostIsbest().equals("1")){
 			criteria.andEqualTo("postIsbest", "1");
 		}
-		if(postExtend.getTypeId()!=null && !postExtend.getTypeId().equals("")){
-			criteria.andEqualTo("postTypeid", postExtend.getTypeId());
+		if(postExtend.getPostTypeid()!=null && !postExtend.getPostTypeid().equals("")){
+			criteria.andEqualTo("postTypeid", postExtend.getPostTypeid());
 		}
 		return this.selectByExample(postExtend.getCurr(), postExtend.getLimit(), example);
 	}

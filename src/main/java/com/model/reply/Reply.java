@@ -10,9 +10,6 @@ public class Reply {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer replyId;
 
-    @Column(name = "reply_content")
-    private String replyContent;
-
     @Column(name = "reply_userId")
     private Integer replyUserid;
 
@@ -33,6 +30,9 @@ public class Reply {
     @Column(name = "reply_isEnd")
     private String replyIsend;
 
+    @Column(name = "reply_content")
+    private String replyContent;
+
     /**
      * @return reply_id
      */
@@ -45,20 +45,6 @@ public class Reply {
      */
     public void setReplyId(Integer replyId) {
         this.replyId = replyId;
-    }
-
-    /**
-     * @return reply_content
-     */
-    public String getReplyContent() {
-        return replyContent;
-    }
-
-    /**
-     * @param replyContent
-     */
-    public void setReplyContent(String replyContent) {
-        this.replyContent = replyContent;
     }
 
     /**
@@ -157,5 +143,19 @@ public class Reply {
      */
     public void setReplyIsend(String replyIsend) {
         this.replyIsend = replyIsend;
+    }
+
+    /**
+     * @return reply_content
+     */
+    public String getReplyContent() {
+        return replyContent;
+    }
+
+    /**
+     * @param replyContent
+     */
+    public void setReplyContent(String replyContent) {
+        this.replyContent = replyContent;
     }
 }

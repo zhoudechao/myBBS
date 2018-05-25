@@ -1,8 +1,5 @@
 package com.service.buser;
 
-import java.util.List;
-import java.util.Map;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -48,7 +45,7 @@ public class BuserService extends BaseService<Buser> {
 		return info;*/
 	}
 	
-	public List<Map<String, Object>> selectUserAndPost(int id){
+	public BuserExtend selectUserAndPost(int id){
 		return buserMapper.selectUserAndPost(id);
 	}
 	

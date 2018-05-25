@@ -52,4 +52,8 @@ public class BoardService extends BaseService<Board> {
 	public List<Map<String, Object>> selectAllForMap(){
 		 return boardMapper.selectAllForMap();
 	}
+	//header查询出板块的id和名称
+	public List<Map<String, Object>> selectAllBoard(){
+		return boardMapper.selectAllBoard();
+	}
 }

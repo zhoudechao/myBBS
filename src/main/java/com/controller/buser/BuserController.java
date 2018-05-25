@@ -3,21 +3,17 @@ package com.controller.buser;
 import java.sql.Timestamp;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.authorization.IgnoreSecurity;
 import com.authorization.IgnoreSecurityType;
 import com.controller.base.BaseController;
 import com.github.pagehelper.PageInfo;
@@ -26,17 +22,15 @@ import com.model.buser.BuserExtend;
 import com.service.buser.BuserService;
 import com.util.DateUtil;
 
-import net.sf.jsqlparser.expression.DateTimeLiteralExpression.DateTime;
-
 @Controller
 @RequestMapping("/buser")
+@IgnoreSecurityType
 public class BuserController extends BaseController<Buser>{
 	@Autowired
 	private BuserService buserService;
 	
 	@ResponseBody
 	@RequestMapping(value="/buserData")
-	@IgnoreSecurity
 	public Map<String, Object> boardData(BuserExtend buserExtend,String startTime1,String endTime1){
 		Map<String, Object> map=new HashMap<String, Object>();
 		try {
@@ -65,7 +59,6 @@ public class BuserController extends BaseController<Buser>{
 	
 	@ResponseBody
 	@RequestMapping("/delete")
-	@IgnoreSecurity
 	public Map<String, Object> delete(Buser buser){
 		Map<String, Object> map=new HashMap<String, Object>();
 		try {
@@ -87,7 +80,6 @@ public class BuserController extends BaseController<Buser>{
 	 */
 	@ResponseBody
 	@RequestMapping("/setUse")
-	@IgnoreSecurity
 	public Map<String, Object> setUse(Buser buser){
 		Map<String, Object> map=new HashMap<String, Object>();
 		try {
@@ -116,10 +108,10 @@ public class BuserController extends BaseController<Buser>{
 	@ResponseBody
 	@RequestMapping(value="/getBuser/{id}",method=RequestMethod.GET,produces="application/json;charset=UTF-8"
 			,consumes="application/json;charset=UTF-8")
-	public List<Map<String, Object>> getBuser(@PathVariable(value="id") Integer id){
+	public BuserExtend getBuser(@PathVariable(value="id") Integer id){
 		if(id !=null){
-			List<Map<String, Object>> list = buserService.selectUserAndPost(id);
-			return list;
+			BuserExtend buserExtend=buserService.selectUserAndPost(id);
+			return  buserExtend;
 		}
 		return null;
 	}

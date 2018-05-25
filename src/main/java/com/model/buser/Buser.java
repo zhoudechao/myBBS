@@ -3,11 +3,9 @@ package com.model.buser;
 import java.util.Date;
 import javax.persistence.*;
 
-import net.sf.jsqlparser.expression.DateTimeLiteralExpression.DateTime;
-
 @Table(name = "bbs_user")
 public class Buser {
-	@Id
+    @Id
     @Column(name = "user_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer userId;
@@ -28,9 +26,6 @@ public class Buser {
     private String userPostnum;
 
     private String zt;
-
-    @Column(name = "user_face")
-    private String userFace;
 
     @Column(name = "user_joinDate")
     private Date userJoindate;
@@ -53,17 +48,15 @@ public class Buser {
     @Column(name = "user_photo")
     private String userPhoto;
 
-    @Column(name = "user_setting")
-    private String userSetting;
-
     @Column(name = "user_description")
     private String userDescription;
 
-    @Column(name = "user_hidden")
-    private String userHidden;
-    
+    /**
+     * 中国
+     */
     @Column(name = "user_address")
     private String userAddress;
+
     /**
      * @return user_id
      */
@@ -160,20 +153,6 @@ public class Buser {
      */
     public void setZt(String zt) {
         this.zt = zt;
-    }
-
-    /**
-     * @return user_face
-     */
-    public String getUserFace() {
-        return userFace;
-    }
-
-    /**
-     * @param userFace
-     */
-    public void setUserFace(String userFace) {
-        this.userFace = userFace;
     }
 
     /**
@@ -275,20 +254,6 @@ public class Buser {
     }
 
     /**
-     * @return user_setting
-     */
-    public String getUserSetting() {
-        return userSetting;
-    }
-
-    /**
-     * @param userSetting
-     */
-    public void setUserSetting(String userSetting) {
-        this.userSetting = userSetting;
-    }
-
-    /**
      * @return user_description
      */
     public String getUserDescription() {
@@ -303,25 +268,20 @@ public class Buser {
     }
 
     /**
-     * @return user_hidden
+     * 获取中国
+     *
+     * @return user_address - 中国
      */
-    public String getUserHidden() {
-        return userHidden;
+    public String getUserAddress() {
+        return userAddress;
     }
 
     /**
-     * @param userHidden
+     * 设置中国
+     *
+     * @param userAddress 中国
      */
-    public void setUserHidden(String userHidden) {
-        this.userHidden = userHidden;
+    public void setUserAddress(String userAddress) {
+        this.userAddress = userAddress;
     }
-
-	public String getUserAddress() {
-		return userAddress;
-	}
-
-	public void setUserAddress(String userAddress) {
-		this.userAddress = userAddress;
-	}
-    
 }

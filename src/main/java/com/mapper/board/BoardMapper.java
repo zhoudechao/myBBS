@@ -8,4 +8,6 @@ import tk.mybatis.mapper.common.Mapper;
 
 public interface BoardMapper extends Mapper<Board> {
 	public List<Map<String, Object>> selectAllForMap();
+	
+	public List<Map<String, Object>> selectAllBoard();
 }

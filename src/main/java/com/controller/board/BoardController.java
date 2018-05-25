@@ -55,21 +55,6 @@ public class BoardController extends BaseController<Board>{
 		return map;
 	}
 	/**
-	 * @Description: 跳转到版块信息添加页面
-	 * @param @param board
-	 * @param @param request
-	 * @param @param model
-	 * @param @return   
-	 * @return String  
-	 * @throws
-	 * @author zhoudechao
-	 * @date 2018年4月25日
-	 */
-	/*@RequestMapping("/form")
-	public String form(Board board,HttpServletRequest request,Model model){
-		return "views/board/boardAdd";
-	}*/
-	/**
 	 * @Description: 保存版块添加或者更新保存
 	 * @param @param board
 	 * @param @return   
@@ -102,22 +87,6 @@ public class BoardController extends BaseController<Board>{
 		}
 		return map;
 	}
-	/**
-	 * @Description:跳转到版块弹出页面
-	 * @param @param board
-	 * @param @param model
-	 * @param @return   
-	 * @return String  
-	 * @throws
-	 * @author zhoudechao
-	 * @date 2018年4月26日
-	 */
-	/*@RequestMapping("/edit")
-	public String edit(Board board,Model model){
-		board=boardService.queryone(board);
-		model.addAttribute("board", board);
-		return "views/board/boardAdd";
-	}*/
 	/**
 	 * @Description:删除版块信息列表
 	 * @param @param board
@@ -167,23 +136,7 @@ public class BoardController extends BaseController<Board>{
 		return map;
 	}
 	
-	/*@ResponseBody
-	@RequestMapping("/deleteBatch")
-	public String deleteBatch(Model model,String ids){
-		String result="0";
-		try {
-			String[] idarr=ids.split(",");
-			for (String id : idarr) {
-				if(boardService.delete(Integer.parseInt(id))!=1){
-					break;
-				}
-			}
-			result="1";
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return result;
-	}*/
+	
 	@SuppressWarnings("unused")
 	/**
 	 * @Description: 根据下拉框异步的加载版块信息的数据
@@ -208,5 +161,19 @@ public class BoardController extends BaseController<Board>{
 			map.put("status", "1");
 			return list;
 		}
+	}
+	
+	/**
+	 * @Description: 前端header中获取版块信息
+	 * @param @return   
+	 * @return List<Board>  
+	 * @throws
+	 * @author zhoudechao
+	 * @date 2018年5月24日
+	 */
+	@ResponseBody
+	@RequestMapping(value="/selectAllBoard",method=RequestMethod.POST)
+	public List<Map<String, Object>> selectAllBoard(){
+		return boardService.selectAllBoard();
 	}
 }

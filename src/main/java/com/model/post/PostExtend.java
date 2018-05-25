@@ -1,9 +1,11 @@
 package com.model.post;
 
 import java.util.Date;
+import java.util.List;
 
 import com.model.board.Board;
 import com.model.buser.Buser;
+import com.model.reply.Reply;
 import com.model.type.Type;
 
 public class PostExtend extends Post {
@@ -16,16 +18,16 @@ public class PostExtend extends Post {
 	private Date startTime;
 	private Date endTime;
 	private int curr;       //前台传过来的当前页
-	private Integer typeId;
+	private List<Reply> listReply;
 	
-	public Integer getTypeId() {
-		return typeId;
+	
+	public List<Reply> getListReply() {
+		return listReply;
 	}
 
-	public void setTypeId(Integer typeId) {
-		this.typeId = typeId;
+	public void setListReply(List<Reply> listReply) {
+		this.listReply = listReply;
 	}
-
 	public int getCurr() {
 		return curr;
 	}

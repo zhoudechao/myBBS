@@ -1,18 +1,20 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.mapper.reply.ReplyMapper" >
-  <resultMap id="BaseResultMap" type="com.model.reply.Reply" >
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mapper.reply.ReplyMapper">
+  <resultMap id="BaseResultMap" type="com.model.reply.Reply">
     <!--
       WARNING - @mbg.generated
     -->
-    <id column="reply_id" property="replyId" jdbcType="INTEGER" />
-    <result column="reply_content" property="replyContent" jdbcType="VARCHAR" />
-    <result column="reply_userId" property="replyUserid" jdbcType="INTEGER" />
-    <result column="reply_userName" property="replyUsername" jdbcType="VARCHAR" />
-    <result column="reply_userIp" property="replyUserip" jdbcType="VARCHAR" />
-    <result column="reply_postId" property="replyPostid" jdbcType="INTEGER" />
-    <result column="reply_Time" property="replyTime" jdbcType="TIMESTAMP" />
-    <result column="zt" property="zt" jdbcType="VARCHAR" />
-    <result column="reply_isEnd" property="replyIsend" jdbcType="VARCHAR" />
+    <id column="reply_id" jdbcType="INTEGER" property="replyId" />
+    <result column="reply_userId" jdbcType="INTEGER" property="replyUserid" />
+    <result column="reply_userName" jdbcType="VARCHAR" property="replyUsername" />
+    <result column="reply_userIp" jdbcType="VARCHAR" property="replyUserip" />
+    <result column="reply_postId" jdbcType="INTEGER" property="replyPostid" />
+    <result column="reply_Time" jdbcType="TIMESTAMP" property="replyTime" />
+    <result column="zt" jdbcType="VARCHAR" property="zt" />
+    <result column="reply_isEnd" jdbcType="VARCHAR" property="replyIsend" />
+    <result column="reply_content" jdbcType="LONGVARCHAR" property="replyContent" />
   </resultMap>
+  
+  
 </mapper>

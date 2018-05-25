@@ -10,10 +10,11 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.mapper.mark.MarkMapper;
 import com.model.mark.Mark;
+import com.service.base.BaseService;
 
 @Service
 @Transactional
-public class MarkService{
+public class MarkService extends BaseService<Mark>{
 	@Autowired
 	private MarkMapper markMapper;
 	

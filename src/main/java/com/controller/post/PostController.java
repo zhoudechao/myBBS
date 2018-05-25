@@ -83,12 +83,12 @@ public class PostController extends BaseController<Post> {
 	 * @date 2018年5月11日
 	 */
 	@ResponseBody
-	@RequestMapping(value="/getPost/{id}",method=RequestMethod.GET,produces="application/json;charset=UTF-8"
+	@RequestMapping(value="/selectPostAndReply/{id}",method=RequestMethod.GET,produces="application/json;charset=UTF-8"
 			,consumes="application/json;charset=UTF-8")
-	public List<Map<String, Object>> getPost(@PathVariable(value="id") Integer id){
+	public PostExtend selectPostAndReply(@PathVariable(value="id") Integer id){
 		if(id !=null){
-			List<Map<String, Object>> list = postService.selectPostAndReply(id);
-			return list;
+			PostExtend postExtend = postService.selectPostAndReply(id);
+			return postExtend;
 		}
 		return null;
 	}
